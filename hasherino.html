@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Hasherino</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Hasherino</h1>
+        <div class="input-container">
+            <input type="text" id="input-text" placeholder="Enter text to hash">
+            <button id="hash-button">Hash!</button>
+        </div>
+        <table id="hash-table">
+            <thead>
+                <tr>
+                    <th>Plaintext</th>
+                    <th>SHA-1 Hash</th>
+                    <th>Strength</th>
+                    <th>Time to crack</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <button id="copy-all-button">Copy Full Table</button>
+        <button id="copy-hashes-button">Copy Hashes</button>
+    </div>
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/dropbox/zxcvbn@master/dist/zxcvbn.js"></script>
+</body>
+
+</html>
