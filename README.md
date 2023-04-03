@@ -1,4 +1,4 @@
-## Hasherino
+## [Hasherino](hasherino)
 
 Hasherino lets you enter some text and displays its SHA-1 hash. (You can do the same with [CyberChef](https://gchq.github.io/CyberChef/#recipe=Fork('%5C%5Cn','%5C%5Cn',false)SHA1(80)).)
 
