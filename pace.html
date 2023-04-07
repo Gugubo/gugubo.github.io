@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Pace Calculator</title>
+    <link rel="stylesheet" href="style-pace.css">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+</head>
+
+<body>
+    <div class="container">
+        <div class="left">
+            <h2>Speed Pace</h2>
+            <div class="input-container">
+                <label for="entry-time">Time when entering CO (hh:mm:ss):</label>
+                <input type="text" id="entry-time">
+            </div>
+            <div class="input-container">
+                <label for="speed-level">Last level completed:</label>
+                <input type="text" id="speed-level">
+            </div>
+            <div class="input-container">
+                <label for="speed">Time in level transition (hh:mm:ss):</label>
+                <input type="text" id="speed">
+            </div>
+            <div class="result">
+                <p id="average_time">Average time per level so far:
+                </p>
+                <p id="predicted_time">Predicted pace based on average:</p>
+            </div>
+        </div>
+        <div class="right">
+            <h2>Score Pace</h2>
+            <div class="input-container">
+                <label for="entry-score">Score when entering CO:</label>
+                <input type="number" id="entry-score">
+            </div>
+            <div class="input-container">
+                <label for="score-level">Last level completed:</label>
+                <input type="text" id="score-level" min="5" max="98">
+            </div>
+            <div class="input-container">
+                <label for="score">Score in level transition:</label>
+                <input type="number" id="score">
+            </div>
+            <div class="result">
+                <p id="average_score">Average score per level so far:</p>
+                <p id="predicted_score">Predicted pace based on average:</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        //Turn (hh:mm:ss) into seconds
+        function parseTime(timeString) {
+            if (timeString === "") {
+                return 0;
+            } else {
+                const timeList = timeString.split(":");
+                if (timeList.length === 3) {
+                    return parseInt(timeList[0]) * 3600 + parseInt(timeList[1]) * 60 + parseInt(timeList[2]);
+                } else if (timeList.length === 2) {
+                    return parseInt(timeList[0]) * 60 + parseInt(timeList[1]);
+                } else {
+                    return parseInt(timeList[0]);
+                }
+            }
+        }
+
+        //Level string with optional "7-" to int
+        function parseLevel(levelString) {
+            if (levelString.startsWith("7-")) {
+                return parseInt(levelString.slice(2));
+            }
+            return parseInt(levelString);
+        }
+
+        // Get all the input elements
+        const inputElements = document.querySelectorAll('input');
+
+        // Add event listeners to all the input elements
+        inputElements.forEach(input => {
+            input.addEventListener('input', () => {
+                // Get the parent container and result element for the input
+                const parentContainer = input.closest('.container');
+                const resultElement = parentContainer.querySelector('.result p');
+
+                // Get the values of all the inputs in the container
+                const inputValues = Array.from(parentContainer.querySelectorAll('input')).map(input => (input.value));
+
+                //Calculate average and predicted time
+                const entry_time = parseTime(inputValues[0])
+                const current_time = parseTime(inputValues[2])
+                const time_level = parseLevel(inputValues[1])
+                const averageTime = (current_time - entry_time) / (time_level - 4);
+                const predictedTime = averageTime * 94 + entry_time;
+
+                //Calculate average and predicted score
+                const entry_score = parseInt(inputValues[3])
+                const current_score = parseInt(inputValues[5])
+                const score_level = parseLevel(inputValues[4])
+                const averageScore = (current_score - entry_score) / (score_level - 4);
+                const predictedScore = averageScore * 94 + entry_score;
+
+                //Display results if valid
+                if (entry_time < current_time && 4 < time_level && time_level <= 98) {
+                    //Zero-padding
+                    const averageTimeFormatted = ("0" + Math.floor(averageTime / 60)).slice(-2) + ":" + ("0" + Math.floor(averageTime % 60)).slice(-2);
+                    const predictedTimeFormatted = ("0" + Math.floor(predictedTime / 3600)).slice(-2) + ":" + ("0" + Math.floor(predictedTime % 3600 / 60)).slice(-2) + ":" + ("0" + Math.floor(predictedTime % 60)).slice(-2);
+
+                    document.getElementById("average_time").textContent = "Average time per level so far: " + averageTimeFormatted;
+                    document.getElementById("predicted_time").textContent = "Predicted pace based on average: " + predictedTimeFormatted;
+                }
+                if (entry_score < current_score && 4 < score_level && score_level <= 98) {
+                    document.getElementById("average_score").textContent = "Average score per level so far: $" + Math.floor(averageScore);
+                    document.getElementById("predicted_score").textContent = "Predicted pace based on average: $" + Math.floor(predictedScore);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
