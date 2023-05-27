@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width; height=device-height;">
+    <style>
+        body {
+            margin: 0;
+
+            /* Center via margin */
+            height: 100vh;
+            display: flex;
+
+            background-color: #111;
+        }
+
+        #icecaves {
+            /* Restrict size */
+            aspect-ratio: 2560 / 1440;
+            box-sizing: border-box;
+            max-height: 100vh;
+            max-width: 100vw;
+
+            /* Center */
+            margin: auto;
+
+            /* Background image */
+            background-image: url("images/icecaves.png");
+            background-size: contain;
+
+            /* One grid cell per tile */
+            display: grid;
+            grid-template-columns: 153fr repeat(30, 75fr) 157fr;
+            grid-template-rows: 33fr repeat(18, 75fr) 57fr;
+        }
+
+        #lise-left,
+        #lise-right {
+            grid-row: 13;
+            grid-column: 17;
+
+            /* Correct size relative to cell */
+            width: 100%;
+            height: 100%;
+
+            /* Correct position relative to cell */
+            position: relative;
+            top: -25%;
+        }
+
+        #lise-left {
+            right: 15%;
+            transform: scaleX(-1);
+            visibility: hidden;
+        }
+
+        #lise-right {
+            left: 25%
+        }
+
+        #info {
+            grid-row: 1 / -1;
+            grid-column: 1 / -1;
+            color: white;
+            font-size: 2em;
+            font-family: monospace;
+            width: 20ch;
+            background-color: #000000aa;
+            margin: auto auto 3em auto;
+            padding: 0.5em 1em;
+            border-radius: 0.5em;
+            border: 10px solid hsl(120, 100%, 50%)
+        }
+    </style>
+    <script type="module">
+        "use strict";
+
+        let imageWidth = 2560;
+        let imageHeight = 1440;
+        let tileSize = 75; //Approximate size of one tile in pixels
+        let gridWidth = 30; //Number of tiles in one row
+        let gridHeight = 18; //Number of tiles in one column
+        let paddingTop = 33;
+        let paddingLeft = 153;
+
+        let icecaves = document.getElementById("icecaves");
+        let liseLeft = document.getElementById("lise-left");
+        let liseRight = document.getElementById("lise-right");
+
+        function clamp(x, a, b) {
+            if (x < a) return a;
+            else if (x > b) return b;
+            else return x;
+        }
+
+        icecaves.addEventListener("mousemove", (e) => {
+            let rect = icecaves.getBoundingClientRect();
+
+
+            let x = (e.clientX - rect.left) / rect.width * imageWidth;
+            let y = (e.clientY - rect.top) / rect.height * imageHeight;
+
+            //Find tile mouse is over
+            let tileX = Math.floor((x - paddingLeft) / tileSize);
+            let tileY = Math.floor((y - paddingTop) / tileSize);
+
+            tileX = clamp(tileX, 0, gridWidth - 1);
+            tileY = clamp(tileY, 0, gridHeight - 1);
+
+            let facingLeft = (x - paddingLeft) / (tileSize / 2) % 2 < 1;
+
+            //Display LISE
+            if (facingLeft) {
+                liseLeft.style.gridColumn = tileX + 2;
+                liseLeft.style.gridRow = tileY + 2;
+
+                liseLeft.style.visibility = "visible";
+                liseRight.style.visibility = "hidden";
+            } else {
+                liseRight.style.gridColumn = tileX + 2;
+                liseRight.style.gridRow = tileY + 2;
+
+                liseLeft.style.visibility = "hidden";
+                liseRight.style.visibility = "visible";
+            }
+
+            //Look up survival rate for this ledge
+            let ice_caves_drop_survival_rate = [0.105473204104903, 0.409246575342466, 0.138461538461538, 0.421232876712329, 0.29002849002849, 0.186073059360731, 0.374572405929304, 0.426940639269406, 0.289623717217788, 0.344178082191781, 0.34626354820308, 0.293949771689498, 0.432401597261837, 0.381278538812785, 0.188356164383562, 0.257420091324201, 0.421232876712329, 0.148972602739726, 0.409817351598174, 0.769406392694064, 0.307648401826484, 0.562214611872146, 0.134703196347032, 0.118150684931507, 0.0616438356164384, 0.0599315068493151, 0.129566210045662, 0.125, 0.998858447488584, 0.454908675799087, 0.448630136986301, 1, 0.103881278538813, 0.131353512278698, 0.0530821917808219, 0.0605368360936608, 0.119292237442922, 0.125071387778412, 0.592465753424658, 0.319634703196347, 0.773401826484018, 0.423757852655625, 0.159817351598174, 0.411529680365297, 0.291666666666667, 0.190068493150685, 0.384703196347032, 0.435179897201599, 0.266552511415525, 0.32134703196347, 0.339041095890411, 0.275684931506849, 0.4337899543379, 0.398401826484018, 0.198059360730594, 0.280821917808219, 0.435502283105023, 0.142694063926941, 0.392694063926941, 0.102168949771689];
+            let survivalRate = ice_caves_drop_survival_rate[tileX * 2 + !facingLeft]
+
+            //Update info
+            survivalrate.textContent = Math.round(survivalRate * 100) + "%";
+            info.style.border = `10px solid hsl(${survivalRate * 140 - 20}, 100%, 50%)`;
+        });
+    </script>
+</head>
+
+<body>
+    <div id="icecaves">
+        <img id="lise-left" src="images/lise-ledge-grab.png">
+        <img id="lise-right" src="images/lise-ledge-grab.png">
+        <p id="info">
+            Survival rate: <span id="survivalrate">100%</span>
+        </p>
+    </div>
+</body>
+
+</html>
