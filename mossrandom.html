@@ -1,0 +1,2707 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Mossrandom</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+
+    <style>
+        body {
+            background-color: #222;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            padding: 12px 24px;
+            background-color: #644b69;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-weight: bold;
+            font-family: Courier New, Courier, monospace;
+            font-size: 18px;
+            letter-spacing: 0px;
+            text-align: center;
+            margin-top: 20%;
+        }
+
+        button:hover {
+            background-color: #917794;
+        }
+
+        #randomCategory {
+            font-weight: bold;
+            font-family: Courier New, Courier, monospace;
+            font-size: 24px;
+            letter-spacing: 0px;
+            text-align: center;
+            color: #FF5DA7;
+        }
+    </style>
+</head>
+
+<div>
+    <button onclick="generateRandomCategory()">Generate random category</button>
+    <p><a id="randomCategory">Random cat</a></p>
+</div>
+
+<body>
+
+    <script>
+        const catsStr = `[
+    {
+        "id": 200,
+        "name": "Score",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 201,
+        "name": "Any%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 202,
+        "name": "Abzu%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 203,
+        "name": "Sunken City%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 204,
+        "name": "No Gold",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 205,
+        "name": "No Teleporter Any%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 206,
+        "name": "Cosmic Ocean%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 207,
+        "name": "All Shortcuts + Tiamat",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 208,
+        "name": "Eggplant%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 209,
+        "name": "Ice Caves Shortcut Low%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 210,
+        "name": "Tutorial%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 211,
+        "name": "No Gold Sunken City%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 212,
+        "name": "No Teleporter No Gold",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 213,
+        "name": "No Teleporter Sunken City%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 214,
+        "name": "Low%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 215,
+        "name": "No Gold Low%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 216,
+        "name": "No Gold Abzu%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 217,
+        "name": "No Gold Duat%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 218,
+        "name": "Eggplant% Abzu",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 219,
+        "name": "Eggplant% Duat",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 222,
+        "name": "Duat%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 223,
+        "name": "Chain Low% Abzu",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 224,
+        "name": "Chain Low% Duat",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 225,
+        "name": "Pacifist",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 226,
+        "name": "Millionaire",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 227,
+        "name": "Any% (Seeded)",
+        "isIL": false,
+        "isSeeded": true,
+        "isCoOp": false
+    },
+    {
+        "id": 228,
+        "name": "Sunken City% (Seeded)",
+        "isIL": false,
+        "isSeeded": true,
+        "isCoOp": false
+    },
+    {
+        "id": 229,
+        "name": "Chain Low% Cosmic Ocean",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 230,
+        "name": "All Characters",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 231,
+        "name": "Eggplant Cosmic Ocean%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 232,
+        "name": "True Crown Cosmic Ocean%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 234,
+        "name": "Low% Millionaire",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 235,
+        "name": "No Gold Chain Low% Abzu",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 236,
+        "name": "No Gold Chain Low% Duat",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 237,
+        "name": "Low% (Seeded)",
+        "isIL": false,
+        "isSeeded": true,
+        "isCoOp": false
+    },
+    {
+        "id": 238,
+        "name": "Chain Low% Eggplant Abzu",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 239,
+        "name": "Chain Low% Eggplant Duat",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 240,
+        "name": "Pacifist Sunken City%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 241,
+        "name": "No Gold Chain Low% Eggplant Abzu",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 242,
+        "name": "No Gold Chain Low% Eggplant Duat",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 245,
+        "name": "No Gold Eggplant%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 246,
+        "name": "Low% Sunken City",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 247,
+        "name": "Score No CO",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 248,
+        "name": "No Teleporter Any% (Seeded)",
+        "isIL": false,
+        "isSeeded": true,
+        "isCoOp": false
+    },
+    {
+        "id": 249,
+        "name": "No Teleporter Millionaire",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 250,
+        "name": "Low% Eggplant",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 251,
+        "name": "Eggplant True Crown Cosmic Ocean%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 252,
+        "name": "Pacifist Eggplant%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 253,
+        "name": "All Journal Entries",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 254,
+        "name": "No Gold Cosmic Ocean%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 255,
+        "name": "No Teleporter Duat%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 256,
+        "name": "No Teleporter Abzu%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 257,
+        "name": "No Teleporter No Gold Sunken City%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 258,
+        "name": "No Gold Low% Sunken City",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 259,
+        "name": "Pacifist Low%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 260,
+        "name": "No Gold Pacifist",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 261,
+        "name": "No Gold Pacifist Low% Sunken City",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 262,
+        "name": "No Gold Pacifist Sunken City%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 263,
+        "name": "Pacifist Low% Sunken City",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 264,
+        "name": "Low% Cosmic Ocean",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 265,
+        "name": "All Journal Entries 2p Co-Op",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": true
+    },
+    {
+        "id": 269,
+        "name": "Speed Area Dwelling",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 270,
+        "name": "Speed Area Dwelling Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 271,
+        "name": "Speed Area Volcana",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 272,
+        "name": "Speed Area Volcana Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 273,
+        "name": "Speed Area Jungle",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 274,
+        "name": "Speed Area Jungle Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 275,
+        "name": "Speed Area/IL  Olmec",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 276,
+        "name": "Speed Area/IL Olmec Low% Tide Pool",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 277,
+        "name": "Speed Area Tide Pool",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 278,
+        "name": "Speed Area Tide Pool Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 279,
+        "name": "Speed Area Temple",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 280,
+        "name": "Speed Area Temple Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 281,
+        "name": "Speed Area/IL Ice Caves",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 282,
+        "name": "Speed Area/IL Ice Caves Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 283,
+        "name": "Speed Area Neo Babylon",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 284,
+        "name": "Speed Area Neo Babylon Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 285,
+        "name": "Speed Area Sunken City",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 286,
+        "name": "Speed Area Sunken City Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 287,
+        "name": "Speed Area Cosmic Ocean",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 288,
+        "name": "Speed IL Dwelling",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 289,
+        "name": "Speed IL Dwelling Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 290,
+        "name": "Speed IL Quillback",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 291,
+        "name": "Speed IL Quillback Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 292,
+        "name": "Speed IL Volcana",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 293,
+        "name": "Speed IL Volcana Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 294,
+        "name": "Speed IL Vlad's Castle",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 295,
+        "name": "Speed IL Vlad's Castle Chain Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 296,
+        "name": "Speed IL Jungle",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 297,
+        "name": "Speed IL Jungle Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 298,
+        "name": "Speed IL Black Market",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 299,
+        "name": "Speed IL Black Market Chain Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 300,
+        "name": "Speed Area/IL Olmec + Ankh Tide Pool",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 301,
+        "name": "Speed Area/IL Olmec + Ankh Chain Low% Tide Pool",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 302,
+        "name": "Speed Area/IL Olmec + Ankh Temple",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 303,
+        "name": "Speed Area/IL Olmec + Ankh Chain Low% Temple",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 304,
+        "name": "Speed IL Tide Pool",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 305,
+        "name": "Speed IL Tide Pool Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 306,
+        "name": "Speed IL Tide Pool Lake of Fire",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 307,
+        "name": "Speed IL Tide Pool Lake of Fire Chain Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 308,
+        "name": "Speed IL Abzu",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 309,
+        "name": "Speed IL Abzu Chain Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 310,
+        "name": "Speed IL Temple",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 311,
+        "name": "Speed IL Temple Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 312,
+        "name": "Speed IL City of Gold",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 313,
+        "name": "Speed IL City of Gold Chain Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 314,
+        "name": "Speed IL Duat",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 315,
+        "name": "Speed IL Duat Chain Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 316,
+        "name": "Speed IL Neo Babylon",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 317,
+        "name": "Speed IL Neo Babylon Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 318,
+        "name": "Speed IL Ushabti",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 319,
+        "name": "Speed IL Ushabti Chain Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 320,
+        "name": "Speed IL Tiamat",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 321,
+        "name": "Speed IL Tiamat Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 322,
+        "name": "Speed IL Tiamat Ascent",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 323,
+        "name": "Speed IL Tiamat Ascent Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 324,
+        "name": "Speed IL Tiamat Ascent Chain Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 325,
+        "name": "Speed IL Sunken City",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 326,
+        "name": "Speed IL Sunken City Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 327,
+        "name": "Speed IL Eggplant World",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 328,
+        "name": "Speed IL Eggplant World Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 329,
+        "name": "Speed IL Hundun",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 330,
+        "name": "Speed IL Hundun Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 331,
+        "name": "Speed IL Hundun Chain Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 332,
+        "name": "Speed IL Cosmic Ocean",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 333,
+        "name": "Speed IL Cosmic Ocean Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 334,
+        "name": "Score Area Dwelling",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 335,
+        "name": "Score Area Volcana",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 336,
+        "name": "Score Area Jungle",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 337,
+        "name": "Score Area/IL Olmec",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 338,
+        "name": "Score Area Tide Pool",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 339,
+        "name": "Score Area Temple",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 340,
+        "name": "Score Area/IL Ice Caves",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 341,
+        "name": "Score Area Neo Babylon",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 342,
+        "name": "Score Area Sunken City",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 343,
+        "name": "Score Area Cosmic Ocean",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 344,
+        "name": "Score IL Dwelling",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 345,
+        "name": "Score IL Dwelling Echoes",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 346,
+        "name": "Score IL Quillback",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 347,
+        "name": "Score IL Volcana",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 348,
+        "name": "Score IL Volcana Echoes",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 349,
+        "name": "Score IL Vlad's Castle",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 350,
+        "name": "Score IL Jungle",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 351,
+        "name": "Score IL Jungle Echoes",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 352,
+        "name": "Score IL Black Market",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 353,
+        "name": "Score IL Tide Pool",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 354,
+        "name": "Score IL Tide Pool Echoes",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 355,
+        "name": "Score IL Abzu",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 356,
+        "name": "Score IL Temple",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 357,
+        "name": "Score IL Temple Echoes",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 358,
+        "name": "Score IL City of Gold",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 359,
+        "name": "Score IL Duat",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 360,
+        "name": "Score IL Neo Babylon",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 361,
+        "name": "Score IL Neo Babylon Echoes",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 362,
+        "name": "Score IL Ushabti",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 363,
+        "name": "Score IL Palace of Pleasure",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 364,
+        "name": "Score IL Tiamat",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 365,
+        "name": "Score IL Sunken City",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 366,
+        "name": "Score IL Eggplant World",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 367,
+        "name": "Score IL Hundun",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 368,
+        "name": "Score IL Cosmic Ocean Dwelling",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 369,
+        "name": "Score IL Cosmic Ocean Volcana",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 370,
+        "name": "Score IL Cosmic Ocean Jungle",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 371,
+        "name": "Score IL Cosmic Ocean Tide Pool",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 372,
+        "name": "Score IL Cosmic Ocean Temple",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 373,
+        "name": "Score IL Cosmic Ocean Ice Caves",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 374,
+        "name": "Score IL Cosmic Ocean Neo Babylon",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 375,
+        "name": "Score IL Cosmic Ocean Sunken City",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 376,
+        "name": "Speed Area Dwelling Low% (Bombless)",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 377,
+        "name": "Speed IL Quillback Low% (Bombless)",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 378,
+        "name": "Speed Area/IL Olmec Low% Tide Pool (Bombless)",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 379,
+        "name": "Speed IL Hundun to Cosmic",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 380,
+        "name": "Speed IL Hundun to Cosmic Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 381,
+        "name": "Speed IL Temple to City of Gold",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 382,
+        "name": "Ice Caves Shortcut Low% Sunken City",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 383,
+        "name": "Low% Jungle/Temple",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 384,
+        "name": "No Jetpack Cosmic Ocean%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 385,
+        "name": "Speed IL Sunken City to Eggplant World",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 386,
+        "name": "Pacifist Chain Low% Abzu",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 387,
+        "name": "Pacifist Chain Low% Duat",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 388,
+        "name": "No Gold Pacifist Low%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 389,
+        "name": "No Gold Pacifist Eggplant%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 390,
+        "name": "No Teleporter All Shortcuts + Tiamat",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 391,
+        "name": "No Gold Low% Eggplant",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 392,
+        "name": "No Teleporter Eggplant%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 393,
+        "name": "Pacifist Cosmic Ocean%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 394,
+        "name": "Low% Score",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 395,
+        "name": "Aggregate Low% Score",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 396,
+        "name": "Tutorial% No Skips",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 397,
+        "name": "Score No CO Volcana/Tide Pool",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 398,
+        "name": "Score IL Jungle Moon Challenge",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 399,
+        "name": "Score IL Jungle Echoes Moon Challenge",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 400,
+        "name": "Score IL Volcana Moon Challenge",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 401,
+        "name": "Score IL Volcana Echoes Moon Challenge",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 402,
+        "name": "Score IL Sun Challenge",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 403,
+        "name": "Speed IL Udjat Eye",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 404,
+        "name": "Speed IL Udjat Eye Chain Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 405,
+        "name": "Speed Area/IL Olmec + Ankh No TP Tide Pool",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 406,
+        "name": "Speed Area/IL Olmec + Ankh No TP Temple",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 407,
+        "name": "Speed IL Abzu Pacifist",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 408,
+        "name": "Speed IL Duat Pacifist",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 409,
+        "name": "Speed IL Tiamat Pacifist",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 410,
+        "name": "Speed IL Eggplant World Pacifist",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 411,
+        "name": "Speed IL Hundun Pacifist",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 412,
+        "name": "Speed Area/IL Olmec Low% Temple",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 413,
+        "name": "Speed Area/IL Olmec Low% Temple (Bombless)",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 414,
+        "name": "Ice Caves Shortcut Pacifist Low%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 415,
+        "name": "Ice Caves Shortcut Low% Millionaire",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 416,
+        "name": "No Teleporter Pacifist",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 417,
+        "name": "No Teleporter Pacifist Sunken City%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 418,
+        "name": "Pacifist Abzu%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 419,
+        "name": "Pacifist Duat%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 420,
+        "name": "No Gold Pacifist Chain Low% Abzu",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 421,
+        "name": "No Gold Pacifist Chain Low% Duat",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 422,
+        "name": "Pacifist Chain Low% Eggplant Abzu",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 423,
+        "name": "Pacifist Chain Low% Eggplant Duat",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 424,
+        "name": "No Gold Pacifist Chain Low% Eggplant Abzu",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 425,
+        "name": "No Gold Pacifist Chain Low% Eggplant Duat",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 426,
+        "name": "Pacifist Low% Eggplant",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 427,
+        "name": "No Gold Pacifist Low% Eggplant",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 428,
+        "name": "No Teleporter All Characters",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 429,
+        "name": "No Gold Pacifist Cosmic Ocean%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 430,
+        "name": "No%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 431,
+        "name": "No% Sunken City",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 432,
+        "name": "Pacifist No%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 433,
+        "name": "Pacifist No% Sunken City",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 434,
+        "name": "Hitless Cosmic Ocean%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 503,
+        "name": "Ice Caves Shortcut Low% Eggplant",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 504,
+        "name": "Ice Caves Shortcut Any%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 505,
+        "name": "Ice Caves Shortcut Pacifist Low% Sunken City",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 506,
+        "name": "Speed Pace Quillback",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 507,
+        "name": "Speed Pace Quillback Low% (Bombless)",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 508,
+        "name": "Speed Pace Olmec",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 509,
+        "name": "Speed Pace Olmec Low% (Bombless)",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 510,
+        "name": "Speed Pace Olmec Chain Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 511,
+        "name": "Speed Pace Abzu",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 512,
+        "name": "Speed Pace Abzu Chain Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 513,
+        "name": "Speed Pace Duat",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 514,
+        "name": "Speed Pace Duat Chain Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 515,
+        "name": "Speed Pace Ice Caves",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 516,
+        "name": "Speed Pace Ice Caves Low% (Bombless)",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 517,
+        "name": "Speed Pace Ice Caves Chain Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 518,
+        "name": "Speed Pace Neo Babylon",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 519,
+        "name": "Speed Pace Neo Babylon Low% (Bombless)",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 520,
+        "name": "Speed Pace Neo Babylon Chain Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 521,
+        "name": "Speed Pace Sunken City",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 522,
+        "name": "Speed Pace Sunken City Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 523,
+        "name": "Speed Pace Sunken City Chain Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 524,
+        "name": "Speed Pace Cosmic Ocean",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 525,
+        "name": "Speed Pace Cosmic Ocean Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 526,
+        "name": "Score Pace Olmec",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 527,
+        "name": "Score Pace Olmec Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 528,
+        "name": "Score Pace Ice Caves",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 529,
+        "name": "Score Pace Ice Caves Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 530,
+        "name": "Score Pace Neo Babylon",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 531,
+        "name": "Score Pace Neo Babylon Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 532,
+        "name": "Score Pace Sunken City",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 533,
+        "name": "Score Pace Sunken City Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 534,
+        "name": "Score Pace Cosmic Ocean",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 536,
+        "name": "Low% Volcana/Temple",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 537,
+        "name": "Spelunker Trials IL Dwelling-1: Skill Check",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 538,
+        "name": "Spelunker Trials IL Dwelling-2: Lock Picking",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 539,
+        "name": "Spelunker Trials IL Dwelling-3: The Descent",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 540,
+        "name": "Spelunker Trials IL Dwelling-4: Quilliam",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 541,
+        "name": "Spelunker Trials IL Volcana-1: Heating Up",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 542,
+        "name": "Spelunker Trials IL Volcana-2: The Floor is Lava",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 543,
+        "name": "Spelunker Trials IL Volcana-3: Companion",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 544,
+        "name": "Spelunker Trials IL Volcana-4: Knocking on Hell's Door",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 545,
+        "name": "Spelunker Trials IL Jungle-1: Welcome to the Jungle",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 546,
+        "name": "Spelunker Trials IL Jungle-2: Sharpshooter",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 547,
+        "name": "Spelunker Trials IL Jungle-3: Aichmophobia",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 548,
+        "name": "Spelunker Trials IL Jungle-4: Jungle Gym",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 549,
+        "name": "Spelunker Trials IL Tidepool-1: Torpedo",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 550,
+        "name": "Spelunker Trials IL Tidepool-2: Escape Artist",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 551,
+        "name": "Spelunker Trials IL Tidepool-3: Fire Walker",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 552,
+        "name": "Spelunker Trials IL Tidepool-4: Escort Mission",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 553,
+        "name": "Spelunker Trials IL Temple-1: Momentum",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 554,
+        "name": "Spelunker Trials IL Temple-2: Tomb Raider",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 555,
+        "name": "Spelunker Trials IL Temple-3: Fool's Gold",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 556,
+        "name": "Spelunker Trials IL Temple-4: Oasis",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 557,
+        "name": "Spelunker Trials IL Neo Babylon-1: Security Breach",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 558,
+        "name": "Spelunker Trials IL Neo Babylon-2: Power Core",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 559,
+        "name": "Spelunker Trials IL Neo Babylon-3: Bounce House",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 560,
+        "name": "Spelunker Trials IL Neo Babylon-4: Ascension",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 561,
+        "name": "Spelunker Trials IL Sunken City-1: Graveyard",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 562,
+        "name": "Spelunker Trials IL Sunken City-2: Aubergine",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 563,
+        "name": "Spelunker Trials IL Sunken City-3: Choking Hazard",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 564,
+        "name": "Spelunker Trials IL Sunken City-4: Zenith",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 565,
+        "name": "Spelunker Trials Any%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 566,
+        "name": "Score Area Dwelling Aggregate Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 567,
+        "name": "Score Area Volcana Aggregate Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 568,
+        "name": "Score Area Jungle Aggregate Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 569,
+        "name": "Score Area/IL Olmec Aggregate Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 570,
+        "name": "Score Area Tide Pool Aggregate Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 571,
+        "name": "Score Area Temple Aggregate Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 572,
+        "name": "Score Area/IL Ice Caves Aggregate Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 573,
+        "name": "Score Area Neo Babylon Aggregate Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 574,
+        "name": "Score Area Sunken City Aggregate Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 575,
+        "name": "Score Area Cosmic Ocean Aggregate Low%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 577,
+        "name": "Crushabti%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 578,
+        "name": "Low% Axolotl",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 579,
+        "name": "Low% Turkey",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 580,
+        "name": "Slow%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 581,
+        "name": "Low% True Crown",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 582,
+        "name": "Keyamat",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 583,
+        "name": "Rope%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 584,
+        "name": "Legendary Meal%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 585,
+        "name": "All Bosses",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 595,
+        "name": "Eggplant% (Seeded)",
+        "isIL": false,
+        "isSeeded": true,
+        "isCoOp": false
+    },
+    {
+        "id": 596,
+        "name": "Chain Low% Abzu (Seeded)",
+        "isIL": false,
+        "isSeeded": true,
+        "isCoOp": false
+    },
+    {
+        "id": 597,
+        "name": "Chain Low% Duat (Seeded)",
+        "isIL": false,
+        "isSeeded": true,
+        "isCoOp": false
+    },
+    {
+        "id": 598,
+        "name": "Abzu% (Seeded)",
+        "isIL": false,
+        "isSeeded": true,
+        "isCoOp": false
+    },
+    {
+        "id": 599,
+        "name": "Duat% (Seeded)",
+        "isIL": false,
+        "isSeeded": true,
+        "isCoOp": false
+    },
+    {
+        "id": 600,
+        "name": "Cosmic Ocean% (Seeded)",
+        "isIL": false,
+        "isSeeded": true,
+        "isCoOp": false
+    },
+    {
+        "id": 601,
+        "name": "Low% Cosmic Ocean (Seeded)",
+        "isIL": false,
+        "isSeeded": true,
+        "isCoOp": false
+    },
+    {
+        "id": 602,
+        "name": "No Teleporter Eggplant% Abzu",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 603,
+        "name": "No Teleporter Eggplant% Duat",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 604,
+        "name": "No Teleporter No Gold Eggplant%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 639,
+        "name": "Draining Tiamat",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 640,
+        "name": "Low% 2p Co-Op",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": true
+    },
+    {
+        "id": 641,
+        "name": "MossRacing: Any%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 642,
+        "name": "MossRacing: Abzu%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 643,
+        "name": "MossRacing: Sunken City%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 644,
+        "name": "MossRacing: No Gold",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 645,
+        "name": "MossRacing: No Teleporter Any%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 646,
+        "name": "MossRacing: Cosmic Ocean%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 647,
+        "name": "MossRacing: No Teleporter Sunken City%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 648,
+        "name": "MossRacing: Low%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 649,
+        "name": "MossRacing: No Gold Low%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 650,
+        "name": "MossRacing: Duat%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 651,
+        "name": "MossRacing: Chain Low% Abzu",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 652,
+        "name": "MossRacing: Chain Low% Duat",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 653,
+        "name": "MossRacing: No Teleporter Duat%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 654,
+        "name": "MossRacing: No Teleporter Abzu%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 655,
+        "name": "MossRacing: Pacifist Low%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 656,
+        "name": "MossRacing: Low% Jungle/Temple",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 657,
+        "name": "MossRacing: No Teleporter Eggplant%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 715,
+        "name": "Low% Eggplant Cosmic Ocean",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 716,
+        "name": "Chain Low% True Crown Cosmic Ocean",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 717,
+        "name": "Chain Low% Eggplant Cosmic Ocean",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 718,
+        "name": "Chain Low% Eggplant True Crown Cosmic Ocean",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 719,
+        "name": "Cosmic Ocean% 2p Co-Op",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": true
+    },
+    {
+        "id": 720,
+        "name": "Low% Cosmic Ocean 2p Co-Op",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": true
+    },
+    {
+        "id": 722,
+        "name": "Cosmic Ocean% 4p Co-Op",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": true
+    },
+    {
+        "id": 723,
+        "name": "Low% Cosmic Ocean 4p Co-Op",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": true
+    },
+    {
+        "id": 732,
+        "name": "No% Eggplant",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 735,
+        "name": "Chain Low% Abzu 2p Co-Op",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": true
+    },
+    {
+        "id": 736,
+        "name": "Chain Low% Duat 2p Co-Op",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": true
+    },
+    {
+        "id": 741,
+        "name": "Low% True Crown Sunken City",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 742,
+        "name": "True Crown Eggplant%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 743,
+        "name": "Speed Pace Olmec No Teleporter",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 744,
+        "name": "Speed Pace Olmec No Teleporter Chain",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 745,
+        "name": "Speed Pace Abzu No Teleporter",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 746,
+        "name": "Speed Pace Duat No Teleporter",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 747,
+        "name": "Speed Pace Neo Babylon No Teleporter",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 748,
+        "name": "Speed Pace Sunken City No Teleporter",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 749,
+        "name": "Speed IL Tide Pool Lake of Fire No Teleporter",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 750,
+        "name": "Speed IL Duat No Teleporter",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 751,
+        "name": "Speed IL Hundun (Ankhless)",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 752,
+        "name": "Speed IL Hundun No Teleporter (Ankhless)",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 765,
+        "name": "Vanilla Score",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 776,
+        "name": "No Teleporter Chain Tiamat",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 777,
+        "name": "Paranormal Investigator%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 778,
+        "name": "Low% Brainfreeze",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 779,
+        "name": "No Vault Millionaire",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 786,
+        "name": "Speed IL Tiamat No%",
+        "isIL": true,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 787,
+        "name": "Ice Caves Shortcut No%",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 810,
+        "name": "Slow% 2p Co-Op",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": true
+    },
+    {
+        "id": 811,
+        "name": "Low% Score 2p Co-Op",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": true
+    },
+    {
+        "id": 812,
+        "name": "Aggregate Low% Score 4p Co-Op",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": true
+    },
+    {
+        "id": 813,
+        "name": "Low% Score 4p Co-Op",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": true
+    },
+    {
+        "id": 825,
+        "name": "All Achievements",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 832,
+        "name": "Chain No% Abzu",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    },
+    {
+        "id": 833,
+        "name": "Chain No% Duat",
+        "isIL": false,
+        "isSeeded": false,
+        "isCoOp": false
+    }
+]`;
+        function generateRandomCategory() {
+            const cats = Object.values(JSON.parse(catsStr));
+
+            // Define the filtering criteria
+            const filterCriteria = { isIL: false, isSeeded: false, isCoOp: false };
+
+            // Filter the list based on the criteria
+            const filteredCats = cats.filter(item => {
+                for (const key in filterCriteria) {
+                    if (item[key] !== filterCriteria[key]) {
+                        return false;
+                    }
+                }
+                return true;
+            });
+
+            //Pick random cat from filtered list
+            const randomIndex = Math.floor(Math.random() * filteredCats.length);
+            const randomCat = filteredCats[randomIndex];
+
+            // Update category text
+            const category = document.getElementById('randomCategory');
+            category.textContent = randomCat.name;
+            category.href = "https://mossranking.com/cat.php?cat=" + randomCat.id;
+        }
+    </script>
+</body>
