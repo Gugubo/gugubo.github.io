@@ -121,3 +121,26 @@ button:hover {
     text-align: center;
     color: #FF5DA7;
 }
+
+#progressbar {
+    background-color: black;
+    border-radius: 15px;
+    padding: 5px;
+    width: 700px;
+}
+
+#progressbar>div {
+    background-color: #FF5DA7;
+    width: 9.18%;
+    height: 30px;
+    border-radius: 10px;
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    color: white;
+    font-weight: bold;
+}
