@@ -1,0 +1,408 @@
+<html>
+
+<head>
+    <style>
+        body {
+            background-color: #333;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+
+        table.sortable {
+            border-collapse: collapse;
+            width: 100%;
+            background-color: #444;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 14px;
+            text-align: left;
+            font-size: 18px;
+        }
+
+        th {
+            background-color: #3498db;
+            color: #fff;
+            cursor: pointer;
+            position: relative;
+        }
+
+        th::before {
+            content: " ▼";
+            /* Default sort indicator, descending */
+            opacity: 0.6;
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+        }
+
+        th.ascending::before {
+            content: " ▲";
+            /* Ascending sort indicator */
+        }
+
+        th:hover {
+            background-color: #2980b9;
+        }
+
+        td[data-value] {
+            text-align: right;
+        }
+
+        tr:nth-child(even) {
+            background-color: #555;
+        }
+
+        /* Define link styles */
+        .link {
+            color: #87CEEB;
+            /* Very light blue link color */
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+
+<body>
+    <table class="sortable">
+        <thead>
+            <tr>
+                <th title="Title">Title</th>
+                <th title="Author">Author</th>
+                <th title="Date on which the mod was first published">Published</th>
+                <th title="Number of downloads">Downloads</th>
+                <th title="Number of levels">Levels</th>
+                <th title="Estimated sum of ILs">Guide</th>
+                <th title="How fast a speedrun would be">WR</th>
+                <th title="How long it might take you on your first try">Clear time</th>
+                <th title="Does the mod include a win screen with stats?">Book</th>
+                <th title="Does the mod include death markers?">Death Markers</th>
+                <th title="Average time per level">Level average (Guide)</th>
+                <th title="Average time per level in a speedrun">Level average (WR)</th>
+                <th title="Average time per level on your first try">Level average (Clear)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><a class="link" href="https://spelunky.fyi/mods/m/the-jymiro-trials">The Jymiro Trials</a></td>
+                <td><a class="link" href="https://spelunky.fyi/profile/JawnGC">JawnGC</a></td>
+                <td>2023-09-22</td>
+                <td>5</td>
+                <td>14</td>
+                <td><a class="link" href="https://www.youtube.com/watch?v=fd9yPokPj_c">00:06:54</a></td>
+                <td>?</td>
+                <td>02:38:00</td>
+                <td>❌</td>
+                <td>❌</td>
+                <td>00:00:29</td>
+                <td>?</td>
+                <td>00:11:17</td>
+            </tr>
+            <tr>
+                <td><a class="link" href="https://spelunky.fyi/mods/m/the-lost-levels-kaizo">The Lost Levels [Kaizo]</a>
+                </td>
+                <td><a class="link" href="https://spelunky.fyi/profile/JawnGC">JawnGC</a></td>
+                <td>2023-09-05</td>
+                <td>34</td>
+                <td>25</td>
+                <td>?</td>
+                <td><a class="link" href="https://www.youtube.com/watch?v=wh3SiAbvq10">00:03:52</a></td>
+                <td>01:09:40</td>
+                <td>❌</td>
+                <td>❌</td>
+                <td>?</td>
+                <td>00:00:09</td>
+                <td>00:02:47</td>
+            </tr>
+            <tr>
+                <td><a class="link" href="https://spelunky.fyi/mods/m/battle">Bonus Arrow Trap Trials Levels
+                        (Exclusive)</a></td>
+                <td><a class="link" href="https://spelunky.fyi/profile/Gugubo">Gugubo</a></td>
+                <td>2023-08-21</td>
+                <td>50</td>
+                <td>60</td>
+                <td>?</td>
+                <td>00:33:00</td>
+                <td>?</td>
+                <td>✔️</td>
+                <td>✔️</td>
+                <td>?</td>
+                <td>00:00:33</td>
+                <td>?</td>
+            </tr>
+            <tr>
+                <td><a class="link" href="https://spelunky.fyi/mods/m/attack">Arrow Trap Trials: A Community Kaizo</a>
+                </td>
+                <td><a class="link" href="https://spelunky.fyi/profile/Gugubo">Gugubo</a></td>
+                <td>2023-08-20</td>
+                <td>149</td>
+                <td>100</td>
+                <td><a class="link" href="https://www.youtube.com/watch?v=tk9PKWpzs8w">00:06:00</a></td>
+                <td><a class="link" href="https://www.youtube.com/watch?v=xV0kFaX4OD0">00:07:51</a></td>
+                <td>00:59:29</td>
+                <td>✔️</td>
+                <td>✔️</td>
+                <td>00:00:03</td>
+                <td>00:00:04</td>
+                <td>00:00:35</td>
+            </tr>
+            <tr>
+                <td><a class="link" href="https://spelunky.fyi/mods/m/no-gold-no-trials">No Gold No Trials</a></td>
+                <td><a class="link" href="https://spelunky.fyi/profile/Gugubo">Gugubo</a></td>
+                <td>2023-06-29</td>
+                <td>30</td>
+                <td>24</td>
+                <td>?</td>
+                <td>00:06:16</td>
+                <td>?</td>
+                <td>✔️</td>
+                <td>✔️</td>
+                <td>?</td>
+                <td>00:00:15</td>
+                <td>?</td>
+            </tr>
+            <tr>
+                <td><a class="link" href="https://spelunky.fyi/mods/m/no-gold-trials">No Gold Trials</a></td>
+                <td><a class="link" href="https://spelunky.fyi/profile/aok76">aok76</a></td>
+                <td>2023-05-06</td>
+                <td>128</td>
+                <td>21</td>
+                <td><a class="link" href="https://www.youtube.com/watch?v=9mxAJB-wIrY">00:15:58</a></td>
+                <td>?</td>
+                <td>06:35:31</td>
+                <td>❌</td>
+                <td>❌</td>
+                <td>00:00:45</td>
+                <td>?</td>
+                <td>00:18:50</td>
+            </tr>
+            <tr>
+                <td><a class="link" href="https://spelunky.fyi/mods/m/spelunker-trials-redux">Spelunker Trials Redux</a>
+                </td>
+                <td><a class="link" href="https://spelunky.fyi/profile/JawnGC">JawnGC</a></td>
+                <td>2023-04-17</td>
+                <td>243</td>
+                <td>59</td>
+                <td>?</td>
+                <td><a class="link" href="https://www.youtube.com/watch?v=EyEOkV7c0Wg">00:30:12</a></td>
+                <td>?</td>
+                <td>❌</td>
+                <td>❌</td>
+                <td>?</td>
+                <td>00:00:30</td>
+                <td>?</td>
+            </tr>
+            <tr>
+                <td><a class="link" href="https://spelunky.fyi/mods/m/true-crown-trials">True Crown Trials</a></td>
+                <td><a class="link" href="https://spelunky.fyi/profile/Gugubo">Gugubo</a></td>
+                <td>2022-12-08</td>
+                <td>119</td>
+                <td>14</td>
+                <td><a class="link" href="https://www.youtube.com/watch?v=mfQwE1tU_sI">00:03:01</a></td>
+                <td><a class="link" href="https://www.youtube.com/watch?v=H8Y3Z5J_KkQ">00:03:12</a></td>
+                <td>02:20:48</td>
+                <td>✔️</td>
+                <td>✔️</td>
+                <td>00:00:12</td>
+                <td>00:00:13</td>
+                <td>00:10:03</td>
+            </tr>
+            <tr>
+                <td><a class="link" href="https://spelunky.fyi/mods/m/spelunker-trials-c-sides">Spelunker Trials:
+                        C-Sides</a></td>
+                <td><a class="link" href="https://spelunky.fyi/profile/JawnGC">JawnGC</a></td>
+                <td>2022-10-29</td>
+                <td>102</td>
+                <td>21</td>
+                <td><a class="link" href="https://www.youtube.com/watch?v=qjFiqcKauf0">00:07:27</a></td>
+                <td>?</td>
+                <td>?</td>
+                <td>❌</td>
+                <td>❌</td>
+                <td>00:00:21</td>
+                <td>?</td>
+                <td>?</td>
+            </tr>
+            <tr>
+                <td><a class="link" href="https://spelunky.fyi/mods/m/kaizo-for-infants">Kaizo for Infants</a></td>
+                <td><a class="link" href="https://spelunky.fyi/profile/JawnGC">JawnGC</a></td>
+                <td>2022-09-14</td>
+                <td>253</td>
+                <td>14</td>
+                <td><a class="link" href="https://www.youtube.com/watch?v=HWN7TNVU9Rg">00:04:46</a></td>
+                <td>?</td>
+                <td>?</td>
+                <td>❌</td>
+                <td>❌</td>
+                <td>00:00:20</td>
+                <td>?</td>
+                <td>?</td>
+            </tr>
+            <tr>
+                <td><a class="link" href="https://spelunky.fyi/mods/m/spelunker-trials-b-sides">Spelunker Trials:
+                        B-Sides</a></td>
+                <td><a class="link" href="https://spelunky.fyi/profile/JawnGC">JawnGC</a></td>
+                <td>2022-09-12</td>
+                <td>133</td>
+                <td>21</td>
+                <td><a class="link" href="https://www.youtube.com/watch?v=FRzYBrKvLiM">00:08:40</a></td>
+                <td>?</td>
+                <td>?</td>
+                <td>❌</td>
+                <td>❌</td>
+                <td>00:00:24</td>
+                <td>?</td>
+                <td>?</td>
+            </tr>
+            <tr>
+                <td><a class="link" href="https://spelunky.fyi/mods/m/spelunker-trials-extras">Spelunker Trials:
+                        Extras</a></td>
+                <td><a class="link" href="https://spelunky.fyi/profile/JawnGC">JawnGC</a></td>
+                <td>2022-07-16</td>
+                <td>143</td>
+                <td>15</td>
+                <td><a class="link" href="https://www.youtube.com/watch?v=WZY0xPbJWyY">00:04:52</a></td>
+                <td>?</td>
+                <td>?</td>
+                <td>❌</td>
+                <td>❌</td>
+                <td>00:00:19</td>
+                <td>?</td>
+                <td>?</td>
+            </tr>
+            <tr>
+                <td><a class="link" href="https://spelunky.fyi/mods/m/the-kymiro-trials">The Kymiro Trials</a></td>
+                <td><a class="link" href="https://spelunky.fyi/profile/Kymiro">Kymiro</a></td>
+                <td>2022-03-03</td>
+                <td>483</td>
+                <td>14</td>
+                <td><a class="link" href="https://www.youtube.com/watch?v=s8Fo4P2n4OE">00:20:25</a></td>
+                <td>01:30:00</td>
+                <td><a class="link" href="https://www.youtube.com/watch?v=zfCi-J1ylSw">23:29:19</a></td>
+                <td>✔️</td>
+                <td>✔️</td>
+                <td>00:01:27</td>
+                <td>00:06:25</td>
+                <td>01:40:39</td>
+            </tr>
+            <tr>
+                <td><a class="link" href="https://spelunky.fyi/mods/m/tgt">The Gugubo Trials</a></td>
+                <td><a class="link" href="https://spelunky.fyi/profile/Gugubo">Gugubo</a></td>
+                <td>2022-02-08</td>
+                <td>571</td>
+                <td>28</td>
+                <td><a class="link" href="https://youtu.be/iTRqe1FeTmw">00:26:01</a></td>
+                <td>01:30:00</td>
+                <td>20:50:35</td>
+                <td>✔️</td>
+                <td>✔️</td>
+                <td>00:00:55</td>
+                <td>00:03:12</td>
+                <td>00:44:39</td>
+            </tr>
+            <tr>
+                <td><a class="link" href="https://spelunky.fyi/mods/m/shifting-puzzles">Shifting Puzzles</a></td>
+                <td><a class="link" href="https://spelunky.fyi/profile/Vesite">Vesite</a></td>
+                <td>2022-02-05</td>
+                <td>191</td>
+                <td>8</td>
+                <td><a class="link" href="https://www.youtube.com/watch?v=jbh_R9o32Nc">00:05:28</a></td>
+                <td>?</td>
+                <td>?</td>
+                <td>❌</td>
+                <td>❌</td>
+                <td>00:00:41</td>
+                <td>?</td>
+                <td>?</td>
+            </tr>
+            <tr>
+                <td><a class="link" href="https://spelunky.fyi/mods/m/spelunker-trials-vol-2">Spelunker Trials Vol.
+                        2</a></td>
+                <td><a class="link" href="https://spelunky.fyi/profile/JawnGC">JawnGC</a></td>
+                <td>2022-01-27</td>
+                <td>608</td>
+                <td>28</td>
+                <td><a class="link" href="https://www.youtube.com/watch?v=OGFMkN6fCuI">00:13:59</a></td>
+                <td>?</td>
+                <td>?</td>
+                <td>❌</td>
+                <td>❌</td>
+                <td>00:00:29</td>
+                <td>?</td>
+                <td>?</td>
+            </tr>
+            <tr>
+                <td><a class="link" href="https://spelunky.fyi/mods/m/shifting-puzzles-2">Shifting Puzzles 2</a></td>
+                <td><a class="link" href="https://spelunky.fyi/profile/Vesite">Vesite</a></td>
+                <td>2022-01-16</td>
+                <td>272</td>
+                <td>12</td>
+                <td><a class="link" href="https://www.youtube.com/watch?v=wwiVf6gUpeI">00:08:39</a></td>
+                <td>?</td>
+                <td>?</td>
+                <td>❌</td>
+                <td>❌</td>
+                <td>00:00:43</td>
+                <td>?</td>
+                <td>?</td>
+            </tr>
+            <tr>
+                <td><a class="link" href="https://spelunky.fyi/mods/m/spelunker-trials">Spelunker Trials</a></td>
+                <td><a class="link" href="https://spelunky.fyi/profile/JawnGC">JawnGC</a></td>
+                <td>2021-12-27</td>
+                <td>3495</td>
+                <td>28</td>
+                <td><a class="link" href="https://www.youtube.com/watch?v=uDJGUms2WQo">00:15:18</a></td>
+                <td><a class="link" href="https://www.youtube.com/watch?v=OgzqJ8KOObE">00:30:11</a></td>
+                <td><a class="link" href="https://www.youtube.com/watch?v=e07je41jROk">06:33:44</a></td>
+                <td>❌</td>
+                <td>❌</td>
+                <td>00:00:32</td>
+                <td>00:01:04</td>
+                <td>00:14:03</td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const table = document.querySelector(".sortable");
+            const headers = table.querySelectorAll("thead th");
+            const rows = Array.from(table.querySelectorAll("tbody tr"));
+
+            headers.forEach((header, index) => {
+                header.addEventListener("click", () => {
+                    const isAscending = header.classList.contains("ascending");
+                    rows.sort((a, b) => {
+                        let aValue = a.querySelectorAll("td")[index].textContent;
+                        let bValue = b.querySelectorAll("td")[index].textContent;
+
+                        // Parse as numbers for "Downloads" and "Levels" columns
+                        if (index === 3 || index === 4) {
+                            aValue = parseInt(aValue, 10);
+                            bValue = parseInt(bValue, 10);
+                        }
+
+                        return isAscending
+                            ? aValue > bValue
+                                ? 1
+                                : -1
+                            : aValue < bValue
+                                ? 1
+                                : -1;
+                    });
+
+                    rows.forEach((row) => table.querySelector("tbody").appendChild(row));
+
+                    headers.forEach((h) => h.classList.remove("ascending", "descending"));
+                    header.classList.add(isAscending ? "descending" : "ascending");
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
