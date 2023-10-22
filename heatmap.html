@@ -101,24 +101,20 @@
         const gridContainer = document.getElementById("gridContainer");
 
         // Create the 100x100 grid
-        for (let row = 0; row < 100; row++) {
-            for (let col = 0; col < 100; col++) {
-                const gridSquare = document.createElement("div");
-                gridSquare.classList.add("grid-square");
+        for (let squareNumber = 0; squareNumber < 10000; squareNumber++) {
+            const gridSquare = document.createElement("div");
+            gridSquare.classList.add("grid-square");
 
-                // Calculate the number corresponding to this square
-                const squareNumber = (row - 1) * 100 + col;
+            const maxGuesses = Math.max(...numberList);
+            const baseColor = [145 / 2, 119 / 2, 148 / 2];
+            const maxColor = [255, 93 + 18, 167 + 32];
 
-                const maxGuesses = Math.max(...numberList);
-                const baseColor = [145 / 2, 119 / 2, 148 / 2];
-                const maxColor = [255, 93 + 18, 167 + 32];
+            const color = `rgb(${baseColor.map((c, i) => c + (maxColor[i] - c) * numberList[squareNumber] / maxGuesses).join(",")})`;
+            gridSquare.style.backgroundColor = color;
 
-                const color = `rgb(${baseColor.map((c, i) => c + (maxColor[i] - c) * numberList[squareNumber] / maxGuesses).join(",")})`;
-                gridSquare.style.backgroundColor = color;
-
-                gridContainer.appendChild(gridSquare);
-            }
+            gridContainer.appendChild(gridSquare);
         }
+
     </script>
 </body>
 
