@@ -7,7 +7,8 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f8f8;
+            background-color: #333;
+            /* Updated to a dark background color */
             margin: 0;
             display: flex;
             align-items: center;
@@ -66,7 +67,7 @@
         <h1>All Journal Entries</h1>
         <div id="counter">0/210</div>
         <div>
-            <label for="wordInput">Enter an entry:</label>
+            <label for="wordInput"></label>
             <input type="text" id="wordInput" oninput="checkWord()">
         </div>
         <div id="feedback"></div>
@@ -114,7 +115,7 @@
             const correctWordsList = document.getElementById("correctWords");
             const counter = document.getElementById("counter");
 
-            feedback.innerHTML = "";
+            feedback.innerHTML = "<span></span>";
 
             const processedInput = preprocessInput(input);
 
@@ -126,26 +127,32 @@
                 const processedWord = preprocessInput(word);
                 const distance = calculateLevenshteinDistance(processedInput, processedWord);
 
-                if (distance < minDistance) {
-                    foundWord = word;
-                    minDistance = distance;
+                if (processedInput.slice(-1) === processedWord.slice(-1)) {
+                    if (distance < minDistance) {
+                        foundWord = word;
+                        minDistance = distance;
+                    }
                 }
             });
 
-            //Make sure word hasn't been guessed already
-            if (correctEntries.includes(foundWord)) {
-                feedback.innerHTML = `<span style="color: yellow;">You already discovered ${foundWord}!</span>`;
+            if (foundWord === null) {
                 return;
             }
 
-            //Calculate tolerance based on word length (1 for 8 letters, 2 for 13, 3 for 18, etc.)
-            let tolerance = Math.max(0, (foundWord.length - 3) / 5);
+            //Make sure word hasn't been guessed already
+            if (correctEntries.includes(foundWord)) {
+                feedback.innerHTML = `<span style="color: orange;">You already discovered ${foundWord}!</span>`;
+                return;
+            }
+
+            //Calculate tolerance based on word length (1 for 6 letters, 2 for 10, 3 for 14, etc.)
+            let tolerance = Math.max(0, (foundWord.length - 2) / 4);
             if (minDistance <= tolerance) {
                 feedback.innerHTML = `<span style="color: green;">New journal entry: ${foundWord}!</span>`;
                 correctEntries.push(foundWord);
                 document.getElementById("wordInput").value = "";
             } else if (input.length > 0) {
-                feedback.innerHTML = `<span style="color: red;">${input} is incorrect. Try again!</span>`;
+                feedback.innerHTML = `<span style="color: red;">${input} is incorrect.</span>`;
             }
 
             counter.innerHTML = `${correctEntries.length}/${correctWords.length}`;
