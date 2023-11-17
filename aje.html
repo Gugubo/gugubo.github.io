@@ -116,6 +116,8 @@
 
             feedback.innerHTML = "";
 
+            const processedInput = preprocessInput(input);
+
             let foundWord = null;
             let minDistance = Number.MAX_SAFE_INTEGER;
 
@@ -136,8 +138,8 @@
                 return;
             }
 
-            //Calculate tolerance based on word length (1 for 10 letters, 2 for 15, 3 for 20, etc.)
-            let tolerance = Math.max(0, (foundWord.length - 5) / 5);
+            //Calculate tolerance based on word length (1 for 8 letters, 2 for 13, 3 for 18, etc.)
+            let tolerance = Math.max(0, (foundWord.length - 3) / 5);
             if (minDistance <= tolerance) {
                 feedback.innerHTML = `<span style="color: green;">New journal entry: ${foundWord}!</span>`;
                 correctEntries.push(foundWord);
