@@ -138,15 +138,15 @@
                 return;
             }
 
-            //Make sure word hasn't been guessed already
-            if (correctEntries.includes(foundWord)) {
-                feedback.innerHTML = `<span style="color: orange;">You already discovered ${foundWord}!</span>`;
-                return;
-            }
-
-            //Calculate tolerance based on word length (1 for 6 letters, 2 for 10, 3 for 14, etc.)
-            let tolerance = Math.max(0, (foundWord.length - 2) / 4);
+            //Calculate tolerance based on word length (1 for 7 letters, 2 for 12, 3 for 17, etc.)
+            let tolerance = Math.max(0, (foundWord.length - 2) / 5);
             if (minDistance <= tolerance) {
+                //Make sure word hasn't been guessed already
+                if (correctEntries.includes(foundWord)) {
+                    feedback.innerHTML = `<span style="color: orange;">You already discovered ${foundWord}!</span>`;
+                    return;
+                }
+
                 feedback.innerHTML = `<span style="color: green;">New journal entry: ${foundWord}!</span>`;
                 correctEntries.push(foundWord);
                 document.getElementById("wordInput").value = "";
