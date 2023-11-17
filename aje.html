@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        input {
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        #feedback {
+            margin-top: 15px;
+            font-size: 18px;
+        }
+
+        #correctWords {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1600px;
+            list-style-type: none;
+            padding: 0;
+            margin: 10px auto;
+        }
+
+        #correctWords li {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 5px;
+            width: calc(100% / 19);
+        }
+
+        #counter {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 24px;
+        }
+    </style>
+    <title>AJE</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+</head>
+
+<body>
+    <div class="container">
+        <h1>All Journal Entries</h1>
+        <div id="counter">0/194</div>
+        <div>
+            <label for="wordInput">Enter an entry:</label>
+            <input type="text" id="wordInput" oninput="checkWord()">
+        </div>
+        <div id="feedback"></div>
+        <div>
+            <p>Your journal:</p>
+            <ul id="correctWords"></ul>
+        </div>
+    </div>
+    <script>
+        const correctWords = ["Ana Spelunky", "Margaret Tunnel", "Colin Northward", "Roffy D. Sloth", "Alto Singh", "Liz Mutton", "Nekka the Eagle", "LISE Project", "Coco Von Diamonds", "Manfred Tunnel", "Little Jay", "Tina Flan", "Valerie Crump", "Au", "Demi Von Diamonds", "Pilot", "Princess Airyn", "Dirk Yamaoka", "Guy Spelunky", "Classic Guy", "Terra Tunnel", "Hired Hand", "Eggplant Child", "Shopkeeper", "Tun", "Yang", "Madame Tusk", "Tusk's Bodyguard", "Waddler", "Caveman Shopkeeper", "Ghist Shopkeeper", "Van Horsing", "Parsley", "Parsnip", "Parmesan", "Sparrow", "Beg", "Eggplant King", "Snake", "Spider", "Bat", "Caveman", "Skeleton", "Horned Lizard", "Cave Mole", "Quillback", "Mantrap", "Tiki Man", "Witch Doctor", "Mosquito", "Monkey", "Hang Spider", "Giant Spider", "Magmar", "Robot", "Fire Bug", "Imp", "Lavamander", "Vampire", "Vlad", "Olmec", "Jiangshi", "Jiangshi Assassin", "Flying Fish", "Octopy", "Hermit Crab", "Pangxie", "Great Humphead", "Kingu", "Crocman", "Cobra", "Mummy", "Sorceress", "Cat Mummy", "Necromancer", "Anubis", "Ammit", "Apep", "Anubis II", "Osiris", "UFO", "Alien", "Yeti", "Yeti King", "Yeti Queen", "Lahamu", "Proto Shopkeeper", "Olmite", "Lamassu", "Tiamat", "Tadpole", "Frog", "Fire Frog", "Goliath Frog", "Grub", "Giant Fly", "Hundun", "Eggplant Minister", "Eggplup", "Celestial Jelly", "Scorpion", "Bee", "Queen Bee", "Scarab", "Golden Monkey", "Leprechaun", "Monty", "Percy", "Poochi", "Ghist", "The Ghost", "Cave Turkey", "Rock Dog", "Axolotl", "Qilin", "Mech Rider", "Rope Pile", "Bomb Bag", "Bomb Box", "Paste", "Spectacles", "Climbing Gloves", "Pitcher's Mitt", "Spring Shoes", "Spike Shoes", "Compass", "Alien Compass", "Parachute", "Udjat Eye", "Kapala", "Hedjet", "Crown", "Eggplant Crown", "The True Crown", "Ankh", "Tablet of Destiny", "Skeleton Key", "Royal Jelly", "Cape", "Vlad's Cape", "Jetpack", "Telepack", "Hoverpack", "Powerpack", "Webgun", "Shotgun", "Freeze Ray", "Clone Gun", "Crossbow", "Camera", "Teleporter", "Mattock", "Boomerang", "Machete", "Excalibur", "Broken Sword", "Plasma Cannon", "Scepter", "Hou Yi's Bow", "Arrow of Light", "Wooden Shield", "Shield", "Golden Idol", "The Tusk Idol", "Curse Pot", "Ushabti", "Eggplant", "Cooked Turkey", "Elixir", "Four-Leaf Clover", "Spikes", "Arrow Trap", "Totem Trap", "Log Trap", "Spear Trap", "Thorny Vine", "Bear Trap", "Powder Box", "Falling Platform", "Spikeball", "Lion Trap", "Giant Clam", "Sliding Wall", "Crush Trap", "Giant Crush Trap", "Boulder", "Spring Trap", "Landmine", "Laser Trap", "Spark Trap", "Frog Trap", "Sticky Trap", "Bone Drop", "Egg Sac"];
+        let correctEntries = [];
+
+        function checkWord() {
+            const input = document.getElementById("wordInput").value;
+            const lowercasedInput = input.toLowerCase();
+            const feedback = document.getElementById("feedback");
+            const correctWordsList = document.getElementById("correctWords");
+            const counter = document.getElementById("counter");
+
+            feedback.innerHTML = "";
+
+            const foundWord = correctWords.find(word => word.toLowerCase() === lowercasedInput);
+
+            if (foundWord) {
+                feedback.innerHTML = `<span style="color: green;">New journal entry: ${foundWord}!</span>`;
+                correctEntries.push(foundWord);
+                document.getElementById("wordInput").value = "";
+            } else if (input.length > 0) {
+                feedback.innerHTML = `<span style="color: red;">${input} is incorrect. Try again!</span>`;
+            }
+
+            counter.innerHTML = `${correctEntries.length}/${correctWords.length}`;
+
+            // Display correct words
+            correctWordsList.innerHTML = correctEntries.map(word => `<li>${word}</li>`).join("");
+        }
+    </script>
+</body>
+
+</html>
