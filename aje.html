@@ -34,12 +34,11 @@
 
         input {
             padding: 10px;
-            margin-top: 20px;
+            margin: 20px;
             font-size: 20px;
         }
 
         #feedback {
-            margin-top: 15px;
             font-size: 18px;
         }
 
@@ -60,12 +59,58 @@
             visibility: hidden;
             margin: 0.2em;
             padding: 0.4em 0.8em;
-            border-radius: 1em;
+            border-radius: 2em;
             background-color: #111;
         }
 
         #entries li.found {
             visibility: visible;
+            animation-name: popup;
+            animation-duration: 1s;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: 1;
+        }
+
+        @keyframes popup {
+            0% {
+                transform: scale(1);
+                opacity: 0;
+            }
+
+            70% {
+                transform: scale(1.5);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes wiggle {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            20% {
+                transform: rotate(-5deg);
+            }
+
+            40% {
+                transform: rotate(5deg);
+            }
+
+            60% {
+                transform: rotate(-5deg);
+            }
+
+            80% {
+                transform: rotate(5deg);
+            }
+
+            100% {
+                transform: rotate(0deg);
+            }
         }
     </style>
 </head>
@@ -359,6 +404,7 @@
 
             //No word matches
             if (foundElem === null) {
+                //FEEDBACK.textContent = "Invalid journal entry!";
                 return;
             }
 
@@ -367,11 +413,13 @@
             if (minDistance <= tolerance) {
                 if (foundElem.classList.value == "found") {
                     //Journal entry was already discovered
-
+                    //FEEDBACK.textContent = "You already know this entry!";
+                    foundElem.style.animationName = "wiggle"; //Only works once
                 } else {
                     //New journal entry
                     foundElem.classList.add("found");
                     INPUTFIELD.value = "";
+                    //FEEDBACK.textContent = "Journal Entry Added";
                     updateCounter();
                 }
             }
