@@ -2,53 +2,28 @@
 <html lang="en">
 
 <head>
+    <title>AJE</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
             background-color: #333;
             margin: 0;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh;
         }
 
         .container {
-            background-color: #fff;
+            background-color: #222;
+            color: aliceblue;
             padding: 40px;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
             text-align: center;
-        }
-
-        input {
-            padding: 10px;
-            margin-top: 10px;
-            font-size: 16px;
-        }
-
-        #feedback {
-            margin-top: 15px;
-            font-size: 18px;
-        }
-
-        #correctWords {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            max-width: 1600px;
-            list-style-type: none;
-            padding: 0;
-            margin: 10px auto;
-        }
-
-        #correctWords li {
-            font-size: 16px;
-            font-weight: bold;
-            margin: 5px;
-            width: calc(100% / 19);
         }
 
         #counter {
@@ -56,13 +31,47 @@
             font-weight: bold;
             font-size: 24px;
         }
+
+        input {
+            padding: 10px;
+            margin-top: 20px;
+            font-size: 20px;
+        }
+
+        #feedback {
+            margin-top: 15px;
+            font-size: 18px;
+        }
+
+        fieldset {
+            border-radius: 0.5em;
+            max-width: 1600px;
+        }
+
+        #entries {
+            padding: 0;
+            list-style: none;
+            display: flex;
+            flex-flow: row wrap;
+        }
+
+        #entries li {
+            visibility: hidden;
+            margin: 0.2em;
+            padding: 0.4em 0.8em;
+            border-radius: 1em;
+            background-color: #111;
+        }
+
+        #entries li.found {
+            visibility: visible;
+        }
     </style>
-    <title>AJE</title>
-    <link rel="icon" type="image/png" href="images/favicon.png">
 </head>
 
 <body>
     <div class="container">
+        <img src="images/journal.png" alt="Journal">
         <h1>All Journal Entries</h1>
         <div id="counter">0/210</div>
         <div>
@@ -70,20 +79,234 @@
             <input type="text" id="wordInput" oninput="checkWord()">
         </div>
         <div id="feedback"></div>
-        <div>
-            <p>Your journal:</p>
-            <ul id="correctWords"></ul>
-        </div>
+        <fieldset>
+            <legend>Your journal</legend>
+            <ul id="entries">
+                <li>Dwelling</li>
+                <li>Jungle</li>
+                <li>Volcana</li>
+                <li>Olmec's Lair</li>
+                <li>Tide Pool</li>
+                <li>Abzu</li>
+                <li>Temple of Anubis</li>
+                <li>The City of Gold</li>
+                <li>Duat</li>
+                <li>Ice Caves</li>
+                <li>Neo Babylon</li>
+                <li>Tiamat's Throne</li>
+                <li>Sunken City</li>
+                <li>Eggplant World</li>
+                <li>Hundun's Hideaway</li>
+                <li>Cosmic Ocean</li>
+                <li>Ana Spelunky</li>
+                <li>Margaret Tunnel</li>
+                <li>Colin Northward</li>
+                <li>Roffy D. Sloth</li>
+                <li>Alto Singh</li>
+                <li>Liz Mutton</li>
+                <li>Nekka the Eagle</li>
+                <li>LISE Project</li>
+                <li>Coco Von Diamonds</li>
+                <li>Manfred Tunnel</li>
+                <li>Little Jay</li>
+                <li>Tina Flan</li>
+                <li>Valerie Crump</li>
+                <li>Au</li>
+                <li>Demi Von Diamonds</li>
+                <li>Pilot</li>
+                <li>Princess Airyn</li>
+                <li>Dirk Yamaoka</li>
+                <li>Guy Spelunky</li>
+                <li>Classic Guy</li>
+                <li>Terra Tunnel</li>
+                <li>Hired Hand</li>
+                <li>Eggplant Child</li>
+                <li>Shopkeeper</li>
+                <li>Tun</li>
+                <li>Yang</li>
+                <li>Madame Tusk</li>
+                <li>Tusk's Bodyguard</li>
+                <li>Waddler</li>
+                <li>Caveman Shopkeeper</li>
+                <li>Ghist Shopkeeper</li>
+                <li>Van Horsing</li>
+                <li>Parsley</li>
+                <li>Parsnip</li>
+                <li>Parmesan</li>
+                <li>Sparrow</li>
+                <li>Beg</li>
+                <li>Eggplant King</li>
+                <li>Snake</li>
+                <li>Spider</li>
+                <li>Bat</li>
+                <li>Caveman</li>
+                <li>Skeleton</li>
+                <li>Horned Lizard</li>
+                <li>Cave Mole</li>
+                <li>Quillback</li>
+                <li>Mantrap</li>
+                <li>Tiki Man</li>
+                <li>Witch Doctor</li>
+                <li>Mosquito</li>
+                <li>Monkey</li>
+                <li>Hang Spider</li>
+                <li>Giant Spider</li>
+                <li>Magmar</li>
+                <li>Robot</li>
+                <li>Fire Bug</li>
+                <li>Imp</li>
+                <li>Lavamander</li>
+                <li>Vampire</li>
+                <li>Vlad</li>
+                <li>Olmec</li>
+                <li>Jiangshi</li>
+                <li>Jiangshi Assassin</li>
+                <li>Flying Fish</li>
+                <li>Octopy</li>
+                <li>Hermit Crab</li>
+                <li>Pangxie</li>
+                <li>Great Humphead</li>
+                <li>Kingu</li>
+                <li>Crocman</li>
+                <li>Cobra</li>
+                <li>Mummy</li>
+                <li>Sorceress</li>
+                <li>Cat Mummy</li>
+                <li>Necromancer</li>
+                <li>Anubis</li>
+                <li>Ammit</li>
+                <li>Apep</li>
+                <li>Anubis II</li>
+                <li>Osiris</li>
+                <li>UFO</li>
+                <li>Alien</li>
+                <li>Yeti</li>
+                <li>Yeti King</li>
+                <li>Yeti Queen</li>
+                <li>Lahamu</li>
+                <li>Proto Shopkeeper</li>
+                <li>Olmite</li>
+                <li>Lamassu</li>
+                <li>Tiamat</li>
+                <li>Tadpole</li>
+                <li>Frog</li>
+                <li>Fire Frog</li>
+                <li>Goliath Frog</li>
+                <li>Grub</li>
+                <li>Giant Fly</li>
+                <li>Hundun</li>
+                <li>Eggplant Minister</li>
+                <li>Eggplup</li>
+                <li>Celestial Jelly</li>
+                <li>Scorpion</li>
+                <li>Bee</li>
+                <li>Queen Bee</li>
+                <li>Scarab</li>
+                <li>Golden Monkey</li>
+                <li>Leprechaun</li>
+                <li>Monty</li>
+                <li>Percy</li>
+                <li>Poochi</li>
+                <li>Ghist</li>
+                <li>Ghost</li>
+                <li>Cave Turkey</li>
+                <li>Rock Dog</li>
+                <li>Axolotl</li>
+                <li>Qilin</li>
+                <li>Mech Rider</li>
+                <li>Rope Pile</li>
+                <li>Bomb Bag</li>
+                <li>Bomb Box</li>
+                <li>Paste</li>
+                <li>Spectacles</li>
+                <li>Climbing Gloves</li>
+                <li>Pitcher's Mitt</li>
+                <li>Spring Shoes</li>
+                <li>Spike Shoes</li>
+                <li>Compass</li>
+                <li>Alien Compass</li>
+                <li>Parachute</li>
+                <li>Udjat Eye</li>
+                <li>Kapala</li>
+                <li>Hedjet</li>
+                <li>Crown</li>
+                <li>Eggplant Crown</li>
+                <li>The True Crown</li>
+                <li>Ankh</li>
+                <li>Tablet of Destiny</li>
+                <li>Skeleton Key</li>
+                <li>Royal Jelly</li>
+                <li>Cape</li>
+                <li>Vlad's Cape</li>
+                <li>Jetpack</li>
+                <li>Telepack</li>
+                <li>Hoverpack</li>
+                <li>Powerpack</li>
+                <li>Webgun</li>
+                <li>Shotgun</li>
+                <li>Freeze Ray</li>
+                <li>Clone Gun</li>
+                <li>Crossbow</li>
+                <li>Camera</li>
+                <li>Teleporter</li>
+                <li>Mattock</li>
+                <li>Boomerang</li>
+                <li>Machete</li>
+                <li>Excalibur</li>
+                <li>Broken Sword</li>
+                <li>Plasma Cannon</li>
+                <li>Scepter</li>
+                <li>Hou Yi's Bow</li>
+                <li>Arrow of Light</li>
+                <li>Wooden Shield</li>
+                <li>Metal Shield</li>
+                <li>Idol</li>
+                <li>The Tusk Idol</li>
+                <li>Curse Pot</li>
+                <li>Ushabti</li>
+                <li>Eggplant</li>
+                <li>Cooked Turkey</li>
+                <li>Elixir</li>
+                <li>Four-Leaf Clover</li>
+                <li>Spikes</li>
+                <li>Arrow Trap</li>
+                <li>Totem Trap</li>
+                <li>Log Trap</li>
+                <li>Spear Trap</li>
+                <li>Thorny Vine</li>
+                <li>Bear Trap</li>
+                <li>Powder Box</li>
+                <li>Falling Platform</li>
+                <li>Spikeball</li>
+                <li>Lion Trap</li>
+                <li>Giant Clam</li>
+                <li>Sliding Wall</li>
+                <li>Crush Trap</li>
+                <li>Giant Crush Trap</li>
+                <li>Boulder</li>
+                <li>Spring Trap</li>
+                <li>Landmine</li>
+                <li>Laser Trap</li>
+                <li>Spark Trap</li>
+                <li>Frog Trap</li>
+                <li>Sticky Trap</li>
+                <li>Bone Drop</li>
+                <li>Egg Sac</li>
+            </ul>
+        </fieldset>
     </div>
     <script>
-        const correctWords = ["Dwelling", "Jungle", "Volcana", "Olmec's Lair", "Tide Pool", "Abzu", "Temple of Anubis", "The City of Gold", "Duat", "Ice Caves", "Neo Babylon", "Tiamat's Throne", "Sunken City", "Eggplant World", "Hundun's Hideaway", "Cosmic Ocean", "Ana Spelunky", "Margaret Tunnel", "Colin Northward", "Roffy D. Sloth", "Alto Singh", "Liz Mutton", "Nekka the Eagle", "LISE Project", "Coco Von Diamonds", "Manfred Tunnel", "Little Jay", "Tina Flan", "Valerie Crump", "Au", "Demi Von Diamonds", "Pilot", "Princess Airyn", "Dirk Yamaoka", "Guy Spelunky", "Classic Guy", "Terra Tunnel", "Hired Hand", "Eggplant Child", "Shopkeeper", "Tun", "Yang", "Madame Tusk", "Tusk's Bodyguard", "Waddler", "Caveman Shopkeeper", "Ghist Shopkeeper", "Van Horsing", "Parsley", "Parsnip", "Parmesan", "Sparrow", "Beg", "Eggplant King", "Snake", "Spider", "Bat", "Caveman", "Skeleton", "Horned Lizard", "Cave Mole", "Quillback", "Mantrap", "Tiki Man", "Witch Doctor", "Mosquito", "Monkey", "Hang Spider", "Giant Spider", "Magmar", "Robot", "Fire Bug", "Imp", "Lavamander", "Vampire", "Vlad", "Olmec", "Jiangshi", "Jiangshi Assassin", "Flying Fish", "Octopy", "Hermit Crab", "Pangxie", "Great Humphead", "Kingu", "Crocman", "Cobra", "Mummy", "Sorceress", "Cat Mummy", "Necromancer", "Anubis", "Ammit", "Apep", "Anubis II", "Osiris", "UFO", "Alien", "Yeti", "Yeti King", "Yeti Queen", "Lahamu", "Proto Shopkeeper", "Olmite", "Lamassu", "Tiamat", "Tadpole", "Frog", "Fire Frog", "Goliath Frog", "Grub", "Giant Fly", "Hundun", "Eggplant Minister", "Eggplup", "Celestial Jelly", "Scorpion", "Bee", "Queen Bee", "Scarab", "Golden Monkey", "Leprechaun", "Monty", "Percy", "Poochi", "Ghist", "Ghost", "Cave Turkey", "Rock Dog", "Axolotl", "Qilin", "Mech Rider", "Rope Pile", "Bomb Bag", "Bomb Box", "Paste", "Spectacles", "Climbing Gloves", "Pitcher's Mitt", "Spring Shoes", "Spike Shoes", "Compass", "Alien Compass", "Parachute", "Udjat Eye", "Kapala", "Hedjet", "Crown", "Eggplant Crown", "The True Crown", "Ankh", "Tablet of Destiny", "Skeleton Key", "Royal Jelly", "Cape", "Vlad's Cape", "Jetpack", "Telepack", "Hoverpack", "Powerpack", "Webgun", "Shotgun", "Freeze Ray", "Clone Gun", "Crossbow", "Camera", "Teleporter", "Mattock", "Boomerang", "Machete", "Excalibur", "Broken Sword", "Plasma Cannon", "Scepter", "Hou Yi's Bow", "Arrow of Light", "Wooden Shield", "Metal Shield", "Idol", "The Tusk Idol", "Curse Pot", "Ushabti", "Eggplant", "Cooked Turkey", "Elixir", "Four-Leaf Clover", "Spikes", "Arrow Trap", "Totem Trap", "Log Trap", "Spear Trap", "Thorny Vine", "Bear Trap", "Powder Box", "Falling Platform", "Spikeball", "Lion Trap", "Giant Clam", "Sliding Wall", "Crush Trap", "Giant Crush Trap", "Boulder", "Spring Trap", "Landmine", "Laser Trap", "Spark Trap", "Frog Trap", "Sticky Trap", "Bone Drop", "Egg Sac"];
-        let correctEntries = [];
+        const INPUTFIELD = document.getElementById("wordInput");
+        const FEEDBACK = document.getElementById("feedback");
+        const ENTRIES = document.getElementById("entries");
+        const COUNTER = document.getElementById("counter");
 
+        // Remove special characters and spaces, and convert to lowercase
         function preprocessInput(input) {
-            // Remove special characters and spaces, and convert to lowercase
             return input.replace(/[^a-zA-Z]/g, '').toLowerCase();
         }
 
+        //Calculate Levenshtein distance between two words
         function calculateLevenshteinDistance(a, b) {
             const matrix = Array.from({ length: a.length + 1 }, (_, i) => [i]);
 
@@ -106,58 +329,46 @@
             return matrix[a.length][b.length];
         }
 
+        function updateCounter() {
+            let total = ENTRIES.children.length;
+            let found = ENTRIES.querySelectorAll(".found").length;
+            COUNTER.textContent = `${found}/${total}`;
+        }
 
+        //Run when input changes
         function checkWord() {
-            const input = document.getElementById("wordInput").value;
-            const lowercasedInput = input.toLowerCase();
-            const feedback = document.getElementById("feedback");
-            const correctWordsList = document.getElementById("correctWords");
-            const counter = document.getElementById("counter");
-
-            feedback.innerHTML = "<span></span>";
-
-            const processedInput = preprocessInput(input);
-
-            let foundWord = null;
+            let foundElem = null;
             let minDistance = Number.MAX_SAFE_INTEGER;
+            const processedInput = preprocessInput(INPUTFIELD.value);
 
             //Find closest word
-            correctWords.forEach(word => {
+            for (let elem of ENTRIES.children) {
+                let word = elem.textContent
                 const processedWord = preprocessInput(word);
                 const distance = calculateLevenshteinDistance(processedInput, processedWord);
 
+                //Last letter must match
                 if (processedInput.slice(-1) === processedWord.slice(-1)) {
                     if (distance < minDistance) {
-                        foundWord = word;
+                        foundElem = elem;
                         minDistance = distance;
                     }
                 }
-            });
+            };
 
-            if (foundWord === null) {
+            //No word matches
+            if (foundElem === null) {
                 return;
             }
 
             //Calculate tolerance based on word length (1 for 7 letters, 2 for 12, 3 for 17, etc.)
-            let tolerance = Math.max(0, (foundWord.length - 2) / 5);
+            let tolerance = Math.max(0, (foundElem.textContent.length - 2) / 5);
             if (minDistance <= tolerance) {
-                //Make sure word hasn't been guessed already
-                if (correctEntries.includes(foundWord)) {
-                    feedback.innerHTML = `<span style="color: orange;">You already discovered ${foundWord}!</span>`;
-                    return;
-                }
-
-                feedback.innerHTML = `<span style="color: green;">New journal entry: ${foundWord}!</span>`;
-                correctEntries.push(foundWord);
-                document.getElementById("wordInput").value = "";
-            } else if (input.length > 0) {
-                feedback.innerHTML = `<span style="color: red;">${input} is incorrect.</span>`;
+                //Correct journal entry
+                foundElem.classList.add("found");
+                INPUTFIELD.value = "";
+                updateCounter();
             }
-
-            counter.innerHTML = `${correctEntries.length}/${correctWords.length}`;
-            correctWordsList.innerHTML = correctEntries.map(word => `<li>${word}</li>`).join("");
-
-            //console.log("Input:", input, "Found word:", foundWord, "Distance:", minDistance, "Tolerance:", tolerance);
         }
     </script>
 </body>
