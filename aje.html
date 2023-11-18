@@ -45,7 +45,7 @@
 
         fieldset {
             border-radius: 0.5em;
-            max-width: 1600px;
+            max-width: 1200px;
         }
 
         #entries {
@@ -53,6 +53,7 @@
             list-style: none;
             display: flex;
             flex-flow: row wrap;
+            justify-content: center;
         }
 
         #entries li {
@@ -72,7 +73,7 @@
 <body>
     <div class="container">
         <img src="images/journal.png" alt="Journal">
-        <h1>All Journal Entries</h1>
+        <h1>Do you know All Journal Entries?</h1>
         <div id="counter">0/210</div>
         <div>
             <label for="wordInput"></label>
@@ -364,10 +365,15 @@
             //Calculate tolerance based on word length (1 for 7 letters, 2 for 12, 3 for 17, etc.)
             let tolerance = Math.max(0, (foundElem.textContent.length - 2) / 5);
             if (minDistance <= tolerance) {
-                //Correct journal entry
-                foundElem.classList.add("found");
-                INPUTFIELD.value = "";
-                updateCounter();
+                if (foundElem.classList.value == "found") {
+                    //Journal entry was already discovered
+
+                } else {
+                    //New journal entry
+                    foundElem.classList.add("found");
+                    INPUTFIELD.value = "";
+                    updateCounter();
+                }
             }
         }
     </script>
