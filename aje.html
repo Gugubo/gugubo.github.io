@@ -44,7 +44,10 @@
 
         fieldset {
             border-radius: 0.5em;
-            max-width: 1200px;
+            max-width: 1020px;
+            max-height: 50vh;
+            overflow: auto;
+            scroll-behavior: smooth;
         }
 
         #entries {
@@ -121,10 +124,8 @@
         <h1>Do you know All Journal Entries?</h1>
         <div id="counter">0/210</div>
         <div>
-            <label for="wordInput"></label>
             <input type="text" id="wordInput" oninput="checkWord()">
         </div>
-        <div id="feedback"></div>
         <fieldset>
             <legend>Your journal</legend>
             <ul id="entries">
@@ -341,9 +342,9 @@
             </ul>
         </fieldset>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
     <script>
         const INPUTFIELD = document.getElementById("wordInput");
-        const FEEDBACK = document.getElementById("feedback");
         const ENTRIES = document.getElementById("entries");
         const COUNTER = document.getElementById("counter");
 
@@ -379,6 +380,19 @@
             let total = ENTRIES.children.length;
             let found = ENTRIES.querySelectorAll(".found").length;
             COUNTER.textContent = `${found}/${total}`;
+
+            if (found === total) {
+                party.confetti(INPUTFIELD, {
+                    count: party.variation.range(20, 100),
+                    size: party.variation.range(0.5, 1.2),
+                });
+            }
+        }
+
+        function smoothScroll(elem) {
+            document.querySelector(elem).scrollIntoView({
+                behavior: 'smooth'
+            });
         }
 
         //Run when input changes
@@ -404,7 +418,6 @@
 
             //No word matches
             if (foundElem === null) {
-                //FEEDBACK.textContent = "Invalid journal entry!";
                 return;
             }
 
@@ -413,14 +426,21 @@
             if (minDistance <= tolerance) {
                 if (foundElem.classList.value == "found") {
                     //Journal entry was already discovered
-                    //FEEDBACK.textContent = "You already know this entry!";
                     foundElem.style.animationName = "wiggle"; //Only works once
                 } else {
                     //New journal entry
                     foundElem.classList.add("found");
                     INPUTFIELD.value = "";
-                    //FEEDBACK.textContent = "Journal Entry Added";
                     updateCounter();
+                    foundElem.scrollIntoView({
+                        behavior: 'smooth',
+                        block: "center"
+                    });
+                    party.sparkles(COUNTER, {
+                        count: 1,
+                        size: party.variation.range(2, 5),
+                        speed: party.variation.range(100, 200),
+                    });
                 }
             }
         }
