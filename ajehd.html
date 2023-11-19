@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>AJE HD</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background-color: #333;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background-color: #222;
+            color: aliceblue;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        #counter {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        input {
+            padding: 10px;
+            margin: 20px;
+            font-size: 20px;
+        }
+
+        #feedback {
+            font-size: 18px;
+        }
+
+        fieldset {
+            border-radius: 0.5em;
+            max-width: 1035px;
+            max-height: 50vh;
+            overflow: auto;
+            scroll-behavior: smooth;
+        }
+
+        #entries {
+            padding: 0;
+            list-style: none;
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+        }
+
+        #entries li {
+            visibility: hidden;
+            margin: 0.2em;
+            padding: 0.4em 0.8em;
+            border-radius: 2em;
+            background-color: #111;
+        }
+
+        #entries li.found {
+            visibility: visible;
+            animation-name: popup;
+            animation-duration: 1s;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: 1;
+        }
+
+        @keyframes popup {
+            0% {
+                transform: scale(1);
+                opacity: 0;
+            }
+
+            70% {
+                transform: scale(1.5);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes wiggle {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            20% {
+                transform: rotate(-5deg);
+            }
+
+            40% {
+                transform: rotate(5deg);
+            }
+
+            60% {
+                transform: rotate(-5deg);
+            }
+
+            80% {
+                transform: rotate(5deg);
+            }
+
+            100% {
+                transform: rotate(0deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img src="images/journal.png" alt="Journal">
+        <h1>Do you know All Journal Entries? (HD)</h1>
+        <div id="counter">0/114</div>
+        <div>
+            <input type="text" id="wordInput" oninput="checkWord()">
+        </div>
+        <fieldset>
+            <legend>Your journal</legend>
+            <ul id="entries">
+                <li>The Mines</li>
+                <li>Jungle</li>
+                <li>Ice Caves</li>
+                <li>Temple</li>
+                <li>Hell</li>
+                <li>Haunted Castle</li>
+                <li>Black Market</li>
+                <li>Worm</li>
+                <li>Mothership</li>
+                <li>City of Gold</li>
+                <li>Snake</li>
+                <li>Cobra</li>
+                <li>Bat</li>
+                <li>Spider</li>
+                <li>Spinner Spider</li>
+                <li>Giant Spider</li>
+                <li>Skeleton</li>
+                <li>Scorpion</li>
+                <li>Caveman</li>
+                <li>Damsel</li>
+                <li>Shopkeeper</li>
+                <li>Tunnel Man</li>
+                <li>Scarab</li>
+                <li>Tiki Man</li>
+                <li>Frog</li>
+                <li>Fire Frog</li>
+                <li>Giant Frog</li>
+                <li>Mantrap</li>
+                <li>Piranha</li>
+                <li>Old Bitey</li>
+                <li>Killer Bee</li>
+                <li>Queen Bee</li>
+                <li>Snail</li>
+                <li>Monkey</li>
+                <li>Golden Monkey</li>
+                <li>Jiang Shi</li>
+                <li>Green Knight</li>
+                <li>Black Knight</li>
+                <li>Vampire</li>
+                <li>Ghost</li>
+                <li>Bacterium</li>
+                <li>Worm Egg</li>
+                <li>Worm Baby</li>
+                <li>Yeti</li>
+                <li>Yeti King</li>
+                <li>Mammoth</li>
+                <li>Alien</li>
+                <li>UFO</li>
+                <li>Alien Tank</li>
+                <li>Alien Lord</li>
+                <li>Alien Queen</li>
+                <li>Hawk Man</li>
+                <li>Croc Man</li>
+                <li>Magma Man</li>
+                <li>Scorpion Fly</li>
+                <li>Mummy</li>
+                <li>Anubis</li>
+                <li>Anubis II</li>
+                <li>Olmec</li>
+                <li>Vlad</li>
+                <li>Imp</li>
+                <li>Devil</li>
+                <li>Succubus</li>
+                <li>Horse Head</li>
+                <li>Ox Face</li>
+                <li>King Yama</li>
+                <li>Rope Pile</li>
+                <li>Bomb Bag</li>
+                <li>Bomb Box</li>
+                <li>Spectacles</li>
+                <li>Climbing Gloves</li>
+                <li>Pitcher's Mitt</li>
+                <li>Spring Shoes</li>
+                <li>Spike Shoes</li>
+                <li>Paste</li>
+                <li>Compass</li>
+                <li>Mattock</li>
+                <li>Boomerang</li>
+                <li>Machete</li>
+                <li>Crysknife</li>
+                <li>Web Gun</li>
+                <li>Shotgun</li>
+                <li>Freeze Ray</li>
+                <li>Plasma Cannon</li>
+                <li>Camera</li>
+                <li>Teleporter</li>
+                <li>Parachute</li>
+                <li>Cape</li>
+                <li>Jetpack</li>
+                <li>Shield</li>
+                <li>Royal Jelly</li>
+                <li>Idol</li>
+                <li>Kapala</li>
+                <li>Udjat Eye</li>
+                <li>Ankh</li>
+                <li>Hedjet</li>
+                <li>Sceptre</li>
+                <li>Book of the Dead</li>
+                <li>Vlad's Cape</li>
+                <li>Vlad's Amulet</li>
+                <li>Spikes</li>
+                <li>Arrow Trap</li>
+                <li>Powder Box</li>
+                <li>Boulder</li>
+                <li>Tiki Trap</li>
+                <li>Acid</li>
+                <li>Spring</li>
+                <li>Mine</li>
+                <li>Turret</li>
+                <li>Forcefield</li>
+                <li>Crush Trap</li>
+                <li>Ceiling Trap</li>
+                <li>Spike Ball</li>
+                <li>Lava</li>
+            </ul>
+        </fieldset>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
+    <script>
+        const INPUTFIELD = document.getElementById("wordInput");
+        const ENTRIES = document.getElementById("entries");
+        const COUNTER = document.getElementById("counter");
+
+        // Remove special characters and spaces, and convert to lowercase
+        function preprocessInput(input) {
+            return input.replace(/[^a-zA-Z]/g, '').toLowerCase();
+        }
+
+        //Calculate Levenshtein distance between two words
+        function calculateLevenshteinDistance(a, b) {
+            const matrix = Array.from({ length: a.length + 1 }, (_, i) => [i]);
+
+            for (let j = 1; j <= b.length; j++) {
+                matrix[0][j] = j;
+            }
+
+            for (let i = 1; i <= a.length; i++) {
+                for (let j = 1; j <= b.length; j++) {
+                    const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+                    matrix[i] = matrix[i] || [];
+                    matrix[i][j] = Math.min(
+                        matrix[i - 1][j] + 1,
+                        matrix[i][j - 1] + 1,
+                        matrix[i - 1][j - 1] + cost
+                    );
+                }
+            }
+
+            return matrix[a.length][b.length];
+        }
+
+        function updateCounter() {
+            let total = ENTRIES.children.length;
+            let found = ENTRIES.querySelectorAll(".found").length;
+            COUNTER.textContent = `${found}/${total}`;
+
+            if (found === total) {
+                party.confetti(INPUTFIELD, {
+                    count: party.variation.range(20, 100),
+                    size: party.variation.range(0.5, 1.2),
+                });
+            }
+        }
+
+        function smoothScroll(elem) {
+            document.querySelector(elem).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        //Run when input changes
+        function checkWord() {
+            let foundElem = null;
+            let minDistance = Number.MAX_SAFE_INTEGER;
+            const processedInput = preprocessInput(INPUTFIELD.value);
+
+            //Find closest word
+            for (let elem of ENTRIES.children) {
+                let word = elem.textContent
+                const processedWord = preprocessInput(word);
+                const distance = calculateLevenshteinDistance(processedInput, processedWord);
+
+                //Last letter must match
+                if (processedInput.slice(-1) === processedWord.slice(-1)) {
+                    if (distance < minDistance) {
+                        foundElem = elem;
+                        minDistance = distance;
+                    }
+                }
+            };
+
+            //No word matches
+            if (foundElem === null) {
+                return;
+            }
+
+            //Calculate tolerance based on word length (1 for 7 letters, 2 for 12, 3 for 17, etc.)
+            let tolerance = Math.max(0, (foundElem.textContent.length - 2) / 5);
+            if (minDistance <= tolerance) {
+                if (foundElem.classList.value == "found") {
+                    //Journal entry was already discovered
+                    foundElem.style.animationName = "wiggle"; //Only works once
+                } else {
+                    //New journal entry
+                    foundElem.classList.add("found");
+                    INPUTFIELD.value = "";
+                    updateCounter();
+                    foundElem.scrollIntoView({
+                        behavior: 'smooth',
+                        block: "center"
+                    });
+                    party.sparkles(COUNTER, {
+                        count: 1,
+                        size: party.variation.range(2, 5),
+                        speed: party.variation.range(100, 200),
+                    });
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
