@@ -2,8 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>AJE HD</title>
-    <link rel="icon" type="image/png" href="images/favicon.png">
+    <title>All Death Messages HD</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
@@ -44,10 +43,11 @@
 
         fieldset {
             border-radius: 0.5em;
-            max-width: 1035px;
+            max-width: 1000px;
             max-height: 50vh;
             overflow: auto;
             scroll-behavior: smooth;
+            margin: 20px;
         }
 
         #entries {
@@ -115,137 +115,76 @@
                 transform: rotate(0deg);
             }
         }
+
+        a {
+            text-decoration: none;
+            color: #eee;
+            font-weight: bold;
+            font-size: 16px;
+            transition: color 0.3s ease;
+            padding: 0px;
+        }
+
+        a:hover {
+            color: #0066CC;
+        }
+
+        #kapala {
+            width: 64px;
+            height: 64px;
+            background: url('images/kapala.png') -64px 0px;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <img src="images/journal.png" alt="Journal">
-        <h1>Do you know All Journal Entries? (HD)</h1>
-        <div id="counter">0/114</div>
+        <img id="kapala" src="images/kapala.png" alt="Kapala">
+        <h1>Do you know All Death Messages? (HD)</h1>
+        <div id="counter">0/34</div>
         <div>
             <input type="text" id="wordInput" oninput="checkWord()">
         </div>
         <fieldset>
             <legend>Your journal</legend>
             <ul id="entries">
-                <li>The Mines</li>
-                <li>Jungle</li>
-                <li>Ice Caves</li>
-                <li>Temple</li>
-                <li>Hell</li>
-                <li>Haunted Castle</li>
-                <li>Black Market</li>
-                <li>Worm</li>
-                <li>Mothership</li>
-                <li>City of Gold</li>
-                <li>Snake</li>
-                <li>Cobra</li>
-                <li>Bat</li>
-                <li>Spider</li>
-                <li>Spinner Spider</li>
-                <li>Giant Spider</li>
-                <li>Skeleton</li>
-                <li>Scorpion</li>
-                <li>Caveman</li>
-                <li>Damsel</li>
-                <li>Shopkeeper</li>
-                <li>Tunnel Man</li>
-                <li>Scarab</li>
-                <li>Tiki Man</li>
-                <li>Frog</li>
-                <li>Fire Frog</li>
-                <li>Giant Frog</li>
-                <li>Mantrap</li>
-                <li>Piranha</li>
-                <li>Old Bitey</li>
-                <li>Killer Bee</li>
-                <li>Queen Bee</li>
-                <li>Snail</li>
-                <li>Monkey</li>
-                <li>Golden Monkey</li>
-                <li>Jiang Shi</li>
-                <li>Green Knight</li>
-                <li>Black Knight</li>
-                <li>Vampire</li>
-                <li>Ghost</li>
-                <li>Bacterium</li>
-                <li>Worm Egg</li>
-                <li>Worm Baby</li>
-                <li>Yeti</li>
-                <li>Yeti King</li>
-                <li>Mammoth</li>
-                <li>Alien</li>
-                <li>UFO</li>
-                <li>Alien Tank</li>
-                <li>Alien Lord</li>
-                <li>Alien Queen</li>
-                <li>Hawk Man</li>
-                <li>Croc Man</li>
-                <li>Magma Man</li>
-                <li>Scorpion Fly</li>
-                <li>Mummy</li>
-                <li>Anubis</li>
-                <li>Anubis II</li>
-                <li>Olmec</li>
-                <li>Vlad</li>
-                <li>Imp</li>
-                <li>Devil</li>
-                <li>Succubus</li>
-                <li>Horse Head</li>
-                <li>Ox Face</li>
-                <li>King Yama</li>
-                <li>Rope Pile</li>
-                <li>Bomb Bag</li>
-                <li>Bomb Box</li>
-                <li>Spectacles</li>
-                <li>Climbing Gloves</li>
-                <li>Pitcher's Mitt</li>
-                <li>Spring Shoes</li>
-                <li>Spike Shoes</li>
-                <li>Paste</li>
-                <li>Compass</li>
-                <li>Mattock</li>
-                <li>Boomerang</li>
-                <li>Machete</li>
-                <li>Crysknife</li>
-                <li>Web Gun</li>
-                <li>Shotgun</li>
-                <li>Freeze Ray</li>
-                <li>Plasma Cannon</li>
-                <li>Camera</li>
-                <li>Teleporter</li>
-                <li>Parachute</li>
-                <li>Cape</li>
-                <li>Jetpack</li>
-                <li>Shield</li>
-                <li>Royal Jelly</li>
-                <li>Idol</li>
-                <li>Kapala</li>
-                <li>Udjat Eye</li>
-                <li>Ankh</li>
-                <li>Hedjet</li>
-                <li>Sceptre</li>
-                <li>Book of the Dead</li>
-                <li>Vlad's Cape</li>
-                <li>Vlad's Amulet</li>
-                <li>Spikes</li>
-                <li>Arrow Trap</li>
-                <li>Powder Box</li>
-                <li>Boulder</li>
-                <li>Tiki Trap</li>
-                <li>Acid</li>
-                <li>Spring</li>
-                <li>Mine</li>
-                <li>Turret</li>
-                <li>Forcefield</li>
-                <li>Crush Trap</li>
-                <li>Ceiling Trap</li>
-                <li>Spike Ball</li>
-                <li>Lava</li>
+                <li>Game Over</li>
+                <li>Amazing</li>
+                <li>Splendid</li>
+                <li>Not Bad!</li>
+                <li>Okay</li>
+                <li>Oh, Dear...</li>
+                <li>So Close!</li>
+                <li>Snake Bite</li>
+                <li>Spider Bite</li>
+                <li>Bitten</li>
+                <li>Beaten Up</li>
+                <li>Stomped</li>
+                <li>Stung</li>
+                <li>Eaten</li>
+                <li>Zapped</li>
+                <li>Clawed</li>
+                <li>Cursed</li>
+                <li>Brain Fried</li>
+                <li>Slimed</li>
+                <li>Burned</li>
+                <li>Poked</li>
+                <li>Seduced</li>
+                <li>Haunted</li>
+                <li>Brain Damage</li>
+                <li>Long Fall</li>
+                <li>Blown Up</li>
+                <li>Impaled</li>
+                <li>Arrow</li>
+                <li>Crushed</li>
+                <li>Shattered</li>
+                <li>The Abyss</li>
+                <li>Burned Up</li>
+                <li>Blasted</li>
+                <li>Death</li>
             </ul>
         </fieldset>
-        <a href="aje.html">Play S2 version</a>
+        <a href="admhd.html">Play S2 version</a>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
     <script>
