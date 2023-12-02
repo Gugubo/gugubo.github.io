@@ -129,24 +129,30 @@
             color: #0066CC;
         }
 
+        #kapala-outer{
+            display: flex;
+            justify-content: center;
+        }
+
         #kapala {
             width: 64px;
             height: 64px;
-            background: url('images/kapala.png') -64px 0px;
+            background: url('images/kapala.png') 0px 0px;
+            scale: 1.5;
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <img id="kapala" src="images/kapala.png" alt="Kapala">
+        <div id="kapala-outer"><div id="kapala" alt="Kapala"></div></div>
         <h1>Do you know All Death Messages? (HD)</h1>
         <div id="counter">0/34</div>
         <div>
             <input type="text" id="wordInput" oninput="checkWord()">
         </div>
         <fieldset>
-            <legend>Your journal</legend>
+            <legend>Your deaths</legend>
             <ul id="entries">
                 <li>Game Over</li>
                 <li>Amazing</li>
@@ -184,13 +190,14 @@
                 <li>Death</li>
             </ul>
         </fieldset>
-        <a href="admhd.html">Play S2 version</a>
+        <a href="adm.html">Play S2 version</a>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
     <script>
         const INPUTFIELD = document.getElementById("wordInput");
         const ENTRIES = document.getElementById("entries");
         const COUNTER = document.getElementById("counter");
+        const KAPALA = document.getElementById("kapala");
 
         // Remove special characters and spaces, and convert to lowercase
         function preprocessInput(input) {
@@ -224,6 +231,9 @@
             let total = ENTRIES.children.length;
             let found = ENTRIES.querySelectorAll(".found").length;
             COUNTER.textContent = `${found}/${total}`;
+
+            let n = Math.floor(found/total*6);
+            KAPALA.style.backgroundPosition = `${0-64*n}px 0px`;
 
             if (found === total) {
                 party.confetti(INPUTFIELD, {
