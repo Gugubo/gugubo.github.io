@@ -44,7 +44,7 @@
 
         fieldset {
             border-radius: 0.5em;
-            max-width: 600px;
+            max-width: 650px;
             max-height: 50vh;
             overflow: auto;
             scroll-behavior: smooth;
@@ -129,6 +129,15 @@
         a:hover {
             color: #0066CC;
         }
+        
+        input[type="button"] {
+            padding: 5px;
+            margin: 5px;
+            font-size: 14px;
+            background-color: #222;
+            color: #aaa;
+            border-radius: 5%;
+        }
     </style>
 </head>
 
@@ -172,6 +181,8 @@
             </ul>
         </fieldset>
         <a href="shopkeepers.html">Play Shopkeepers</a>
+        <br>
+        <input type="button" value="(Show solution)" onclick="revealAll();"/>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
     <script>
@@ -224,6 +235,20 @@
             document.querySelector(elem).scrollIntoView({
                 behavior: 'smooth'
             });
+        }
+
+        function revealAll() {
+            let total = ENTRIES.children.length;
+            let found = ENTRIES.querySelectorAll(".found").length;
+
+            if (found === total) {
+                return;
+            }
+            if (confirm("Are you sure you want to show the solution?")) {
+                for (let elem of ENTRIES.children) {
+                    elem.classList.add("found");
+                }
+            }
         }
 
         //Run when input changes
