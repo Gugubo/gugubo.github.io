@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Hired Hands</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background-color: #333;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background-color: #222;
+            color: aliceblue;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        #counter {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        input {
+            padding: 10px;
+            margin: 20px;
+            font-size: 20px;
+        }
+
+        #feedback {
+            font-size: 18px;
+        }
+
+        fieldset {
+            border-radius: 0.5em;
+            max-width: 600px;
+            max-height: 50vh;
+            overflow: auto;
+            scroll-behavior: smooth;
+            margin: 20px;
+        }
+
+        #entries {
+            padding: 0;
+            list-style: none;
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+        }
+
+        #entries li {
+            visibility: hidden;
+            margin: 0.2em;
+            padding: 0.4em 0.8em;
+            border-radius: 2em;
+            background-color: #111;
+        }
+
+        #entries li.found {
+            visibility: visible;
+            animation-name: popup;
+            animation-duration: 1s;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: 1;
+        }
+
+        @keyframes popup {
+            0% {
+                transform: scale(1);
+                opacity: 0;
+            }
+
+            70% {
+                transform: scale(1.5);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes wiggle {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            20% {
+                transform: rotate(-5deg);
+            }
+
+            40% {
+                transform: rotate(5deg);
+            }
+
+            60% {
+                transform: rotate(-5deg);
+            }
+
+            80% {
+                transform: rotate(5deg);
+            }
+
+            100% {
+                transform: rotate(0deg);
+            }
+        }
+
+        a {
+            text-decoration: none;
+            color: #eee;
+            font-weight: bold;
+            font-size: 16px;
+            transition: color 0.3s ease;
+            padding: 0px;
+        }
+
+        a:hover {
+            color: #0066CC;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img src="images/hiredhand.png" alt="Hired Hand">
+        <h1>Do you know all Hired Hands?</h1>
+        <div id="counter">0/26</div>
+        <div>
+            <input type="text" id="wordInput" oninput="checkWord()">
+        </div>
+        <fieldset>
+            <legend>Hands you've Hired</legend>
+            <ul id="entries">
+                <li>Atlas</li>
+                <li>Barca</li>
+                <li>Clovis</li>
+                <li>Dunder</li>
+                <li>Eirik</li>
+                <li>Fink</li>
+                <li>Grom</li>
+                <li>Ham</li>
+                <li>Ivan</li>
+                <li>Javi</li>
+                <li>Kevin</li>
+                <li>Lurch</li>
+                <li>Manfred</li>
+                <li>Nurdle</li>
+                <li>Onyx</li>
+                <li>Pork</li>
+                <li>Quincy</li>
+                <li>Raster</li>
+                <li>Steve</li>
+                <li>Thundar</li>
+                <li>Ug</li>
+                <li>Voxel</li>
+                <li>Wolf</li>
+                <li>Xorn</li>
+                <li>Yor</li>
+                <li>Zorgoth</li>
+            </ul>
+        </fieldset>
+        <a href="shopkeepers.html">Play Shopkeepers</a>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
+    <script>
+        const INPUTFIELD = document.getElementById("wordInput");
+        const ENTRIES = document.getElementById("entries");
+        const COUNTER = document.getElementById("counter");
+
+        // Remove special characters and spaces, and convert to lowercase
+        function preprocessInput(input) {
+            return input.replace(/[^a-zA-Z]/g, '').toLowerCase();
+        }
+
+        //Calculate Levenshtein distance between two words
+        function calculateLevenshteinDistance(a, b) {
+            const matrix = Array.from({ length: a.length + 1 }, (_, i) => [i]);
+
+            for (let j = 1; j <= b.length; j++) {
+                matrix[0][j] = j;
+            }
+
+            for (let i = 1; i <= a.length; i++) {
+                for (let j = 1; j <= b.length; j++) {
+                    const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+                    matrix[i] = matrix[i] || [];
+                    matrix[i][j] = Math.min(
+                        matrix[i - 1][j] + 1,
+                        matrix[i][j - 1] + 1,
+                        matrix[i - 1][j - 1] + cost
+                    );
+                }
+            }
+
+            return matrix[a.length][b.length];
+        }
+
+        function updateCounter() {
+            let total = ENTRIES.children.length;
+            let found = ENTRIES.querySelectorAll(".found").length;
+            COUNTER.textContent = `${found}/${total}`;
+
+            if (found === total) {
+                party.confetti(INPUTFIELD, {
+                    count: party.variation.range(20, 100),
+                    size: party.variation.range(0.5, 1.2),
+                });
+            }
+        }
+
+        function smoothScroll(elem) {
+            document.querySelector(elem).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        //Run when input changes
+        function checkWord() {
+            let foundElem = null;
+            let minDistance = Number.MAX_SAFE_INTEGER;
+            const processedInput = preprocessInput(INPUTFIELD.value);
+
+            //Find closest word
+            for (let elem of ENTRIES.children) {
+                let word = elem.textContent
+                const processedWord = preprocessInput(word);
+                const distance = calculateLevenshteinDistance(processedInput, processedWord);
+
+                //Last letter must match
+                if (processedInput.slice(-1) === processedWord.slice(-1)) {
+                    if (distance < minDistance) {
+                        foundElem = elem;
+                        minDistance = distance;
+                    }
+                }
+            };
+
+            //No word matches
+            if (foundElem === null) {
+                return;
+            }
+
+            //Calculate tolerance based on word length (1 for 7 letters, 2 for 12, 3 for 17, etc.)
+            let tolerance = Math.max(0, (foundElem.textContent.length - 2) / 5);
+            if (minDistance <= tolerance) {
+                if (foundElem.classList.value == "found") {
+                    //Journal entry was already discovered
+                    foundElem.style.animationName = "wiggle"; //Only works once
+                } else {
+                    //New journal entry
+                    foundElem.classList.add("found");
+                    INPUTFIELD.value = "";
+                    updateCounter();
+                    foundElem.scrollIntoView({
+                        behavior: 'smooth',
+                        block: "center"
+                    });
+                    party.sparkles(COUNTER, {
+                        count: 1,
+                        size: party.variation.range(2, 5),
+                        speed: party.variation.range(100, 200),
+                    });
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
