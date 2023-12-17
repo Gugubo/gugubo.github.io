@@ -10,7 +10,6 @@
         body {
             font-family: 'Segoe UI', Tahoma, sans-serif;
             background-color: #333;
-            margin: 0;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -122,11 +121,19 @@
             font-weight: bold;
             font-size: 16px;
             transition: color 0.3s ease;
-            padding: 0px;
         }
 
         a:hover {
             color: #0066CC;
+        }
+        
+        input[type="button"] {
+            padding: 5px;
+            margin: 5px;
+            font-size: 14px;
+            background-color: #222;
+            color: #aaa;
+            border-radius: 5%;
         }
     </style>
 </head>
@@ -261,6 +268,8 @@
         <a href="aje.html">Play S2 version</a>
         <br>
         <a href="ajehd.html">Play ADM</a>
+        <br>
+        <input type="button" value="(Show solution)" onclick="revealAll();"/>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
     <script>
@@ -313,6 +322,20 @@
             document.querySelector(elem).scrollIntoView({
                 behavior: 'smooth'
             });
+        }
+
+        function revealAll() {
+            let total = ENTRIES.children.length;
+            let found = ENTRIES.querySelectorAll(".found").length;
+
+            if (found === total) {
+                return;
+            }
+            if (confirm("Are you sure you want to show the solution?")) {
+                for (let elem of ENTRIES.children) {
+                    elem.classList.add("found");
+                }
+            }
         }
 
         //Run when input changes
