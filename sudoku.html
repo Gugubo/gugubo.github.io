@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sudokubo</title>
+  <style>
+    #sudoku-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #sudoku-grid {
+      display: grid;
+      grid-template-columns: repeat(9, 80px);
+      grid-template-rows: repeat(9, 80px);
+      border: 5px solid #000;
+    }
+
+    .cell {
+      width: 100%;
+      height: 100%;
+      border: 1px solid #000;
+      box-sizing: border-box;
+      background-size: cover;
+    }
+
+    .cell:hover {
+      background-color: #f0f0f0;
+    }
+
+    .cell[data-digit="1"],
+    .image-button[data-digit="1"] {
+      background-image: url('images/enemies/spider.png');
+    }
+
+    .cell[data-digit="2"],
+    .image-button[data-digit="2"] {
+      background-image: url('images/enemies/bat.png');
+    }
+
+    .cell[data-digit="3"],
+    .image-button[data-digit="3"] {
+      background-image: url('images/enemies/snake.png');
+    }
+
+    .cell[data-digit="4"],
+    .image-button[data-digit="4"] {
+      background-image: url('images/enemies/lizard.png');
+    }
+
+    .cell[data-digit="5"],
+    .image-button[data-digit="5"] {
+      background-image: url('images/enemies/cobra.png');
+    }
+
+    .cell[data-digit="6"],
+    .image-button[data-digit="6"] {
+      background-image: url('images/enemies/scorpion.png');
+    }
+
+    .cell[data-digit="7"],
+    .image-button[data-digit="7"] {
+      background-image: url('images/enemies/caveman.png');
+    }
+
+    .cell[data-digit="8"],
+    .image-button[data-digit="8"] {
+      background-image: url('images/enemies/cat.png');
+    }
+
+    .cell[data-digit="9"],
+    .image-button[data-digit="9"] {
+      background-image: url('images/enemies/alien.png');
+    }
+
+    .border-top {
+      border-top: 3px solid #000;
+    }
+
+    .border-bottom {
+      border-bottom: 3px solid #000;
+    }
+
+    .border-left {
+      border-left: 3px solid #000;
+    }
+
+    .border-right {
+      border-right: 3px solid #000;
+    }
+
+    #image-buttons {
+      display: grid;
+      grid-template-columns: repeat(3, 80px);
+      grid-template-rows: repeat(3, 80px);
+      gap: 10px;
+      border: 5px solid #000;
+      border-radius: 10%;
+      padding: 20px;
+      margin: 20px;
+    }
+
+    .image-button {
+      padding: 10px;
+      background-size: cover;
+    }
+
+    .selected {
+      background-color: #eee;
+      border-radius: 20%;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="sudoku-container">
+    <div id="sudoku-grid"></div>
+
+    <div id="image-buttons">
+      <div data-digit="1" class="image-button" onclick="selectDigit(1)"></div>
+      <div data-digit="2" class="image-button" onclick="selectDigit(2)"></div>
+      <div data-digit="3" class="image-button" onclick="selectDigit(3)"></div>
+      <div data-digit="4" class="image-button" onclick="selectDigit(4)"></div>
+      <div data-digit="5" class="image-button" onclick="selectDigit(5)"></div>
+      <div data-digit="6" class="image-button" onclick="selectDigit(6)"></div>
+      <div data-digit="7" class="image-button" onclick="selectDigit(7)"></div>
+      <div data-digit="8" class="image-button" onclick="selectDigit(8)"></div>
+      <div data-digit="9" class="image-button" onclick="selectDigit(9)"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
+  <script>
+    let selectedDigit = null;
+
+    function selectDigit(digit) {
+      //Unselect all image buttons
+      const imageButtons = document.getElementsByClassName("image-button");
+      for (let i = 0; i < imageButtons.length; i++) {
+        imageButtons[i].classList.remove("selected");
+      }
+
+      //Select digit
+      if (selectedDigit === digit) {
+        selectedDigit = null;
+        return;
+      }
+      selectedDigit = digit;
+
+      //Select clicked image button
+      const selectedButton = imageButtons[digit - 1];
+      selectedButton.classList.add("selected");
+    }
+
+    //Bind number keys to select digit
+    document.addEventListener('keydown', function (event) {
+      const numberStart = 48;
+      if (event.keyCode > numberStart && event.keyCode <= numberStart + 9) {
+        selectDigit(event.keyCode - numberStart);
+      }
+    });
+
+    function setCellToCurrentDigit(cell) {
+      if (cell.dataset.given) {
+        return;
+      }
+
+      //Set digit for cell
+      if (parseInt(cell.dataset.digit) === selectedDigit) {
+        cell.dataset.digit = null;
+      } else {
+        cell.dataset.digit = selectedDigit;
+      }
+
+      //Check if solution is correct
+      if (checkSolution()) {
+        const sudokuGrid = document.getElementById("sudoku-grid");
+        party.confetti(sudokuGrid, {
+          count: party.variation.range(100, 300),
+          size: party.variation.range(1, 2),
+        });
+      }
+    }
+
+    let sudoku = [
+      [
+        { "value": 1, "given": true, "centerPencilMarks": [1] },
+        { "value": 2, "centerPencilMarks": [2] },
+        { "value": 3, "given": true, "centerPencilMarks": [3] },
+        { "value": 4, "given": true, "centerPencilMarks": [4] },
+        { "value": 5, "centerPencilMarks": [5] },
+        { "value": 6, "given": true, "centerPencilMarks": [6] },
+        { "value": 7, "given": true, "centerPencilMarks": [7] },
+        { "value": 8, "centerPencilMarks": [8] },
+        { "value": 9, "given": true, "centerPencilMarks": [9] }
+      ],
+      [
+        { "value": 4, "given": true, "centerPencilMarks": [4] },
+        { "value": 6, "centerPencilMarks": [6] },
+        { "value": 9, "centerPencilMarks": [9] },
+        { "value": 8, "centerPencilMarks": [8] },
+        { "value": 7, "centerPencilMarks": [7] },
+        { "value": 3, "centerPencilMarks": [3] },
+        { "value": 2, "given": true, "centerPencilMarks": [2] },
+        { "value": 1, "given": true, "centerPencilMarks": [1] },
+        { "value": 5, "centerPencilMarks": [5] }
+      ],
+      [
+        { "value": 5, "centerPencilMarks": [5] },
+        { "value": 7, "centerPencilMarks": [7] },
+        { "value": 8, "centerPencilMarks": [8] },
+        { "value": 1, "centerPencilMarks": [1] },
+        { "value": 2, "centerPencilMarks": [2] },
+        { "value": 9, "centerPencilMarks": [9] },
+        { "value": 6, "centerPencilMarks": [6] },
+        { "value": 4, "given": true, "centerPencilMarks": [4] },
+        { "value": 3, "centerPencilMarks": [3] }
+      ],
+      [
+        { "value": 2, "given": true, "centerPencilMarks": [2] },
+        { "value": 9, "centerPencilMarks": [9] },
+        { "value": 4, "given": true, "centerPencilMarks": [4] },
+        { "value": 3, "centerPencilMarks": [3] },
+        { "value": 6, "given": true, "centerPencilMarks": [6] },
+        { "value": 1, "given": true, "centerPencilMarks": [1] },
+        { "value": 8, "given": true, "centerPencilMarks": [8] },
+        { "value": 5, "centerPencilMarks": [5] },
+        { "value": 7, "centerPencilMarks": [7] }
+      ],
+      [
+        { "value": 8, "centerPencilMarks": [8] },
+        { "value": 3, "given": true, "centerPencilMarks": [3] },
+        { "value": 6, "centerPencilMarks": [6] },
+        { "value": 5, "centerPencilMarks": [5] },
+        { "value": 4, "centerPencilMarks": [4] },
+        { "value": 7, "given": true, "centerPencilMarks": [7] },
+        { "value": 1, "centerPencilMarks": [1] },
+        { "value": 9, "given": true, "centerPencilMarks": [9] },
+        { "value": 2, "given": true, "centerPencilMarks": [2] }
+      ],
+      [
+        { "value": 7, "given": true, "centerPencilMarks": [7] },
+        { "value": 1, "centerPencilMarks": [1] },
+        { "value": 5, "centerPencilMarks": [5] },
+        { "value": 2, "given": true, "centerPencilMarks": [2] },
+        { "value": 9, "centerPencilMarks": [9] },
+        { "value": 8, "given": true, "centerPencilMarks": [8] },
+        { "value": 4, "centerPencilMarks": [4] },
+        { "value": 3, "given": true, "centerPencilMarks": [3] },
+        { "value": 6, "centerPencilMarks": [6] }
+      ],
+      [
+        { "value": 9, "given": true, "centerPencilMarks": [9] },
+        { "value": 5, "centerPencilMarks": [5] },
+        { "value": 2, "centerPencilMarks": [2] },
+        { "value": 6, "given": true, "centerPencilMarks": [6] },
+        { "value": 1, "given": true, "centerPencilMarks": [1] },
+        { "value": 4, "centerPencilMarks": [4] },
+        { "value": 3, "given": true, "centerPencilMarks": [3] },
+        { "value": 7, "centerPencilMarks": [7] },
+        { "value": 8, "given": true, "centerPencilMarks": [8] }
+      ],
+      [
+        { "value": 6, "centerPencilMarks": [6] },
+        { "value": 8, "given": true, "centerPencilMarks": [8] },
+        { "value": 1, "centerPencilMarks": [1] },
+        { "value": 7, "centerPencilMarks": [7] },
+        { "value": 3, "given": true, "centerPencilMarks": [3] },
+        { "value": 5, "centerPencilMarks": [5] },
+        { "value": 9, "centerPencilMarks": [9] },
+        { "value": 2, "given": true, "centerPencilMarks": [2] },
+        { "value": 4, "centerPencilMarks": [4] }
+      ],
+      [
+        { "value": 3, "centerPencilMarks": [3] },
+        { "value": 4, "centerPencilMarks": [4] },
+        { "value": 7, "given": true, "centerPencilMarks": [7] },
+        { "value": 9, "centerPencilMarks": [9] },
+        { "value": 8, "centerPencilMarks": [8] },
+        { "value": 2, "given": true, "centerPencilMarks": [2] },
+        { "value": 5, "centerPencilMarks": [5] },
+        { "value": 6, "centerPencilMarks": [6] },
+        { "value": 1, "given": true, "centerPencilMarks": [1] }
+      ]
+    ];
+
+    //Check if the current sudoku grid matches the solution
+    function checkSolution() {
+      for (let y = 0; y < 9; y++) {
+        for (let x = 0; x < 9; x++) {
+          const solutionValue = sudoku[y][x].value;
+          const cellValue = parseInt(document.querySelector(`[data-y="${y}"][data-x="${x}"]`).dataset.digit);
+          if (solutionValue !== cellValue) {
+            return false;
+          }
+        }
+      }
+      return true;
+    }
+
+    //Generate the sudoku grid
+    function generateSudokuGrid() {
+      const sudokuGrid = document.getElementById("sudoku-grid");
+
+      for (let y = 0; y < 9; y++) {
+        for (let x = 0; x < 9; x++) {
+          const cell = document.createElement("div");
+          cell.classList.add("cell");
+
+
+          if (sudoku[y][x].given) {
+            cell.dataset.digit = sudoku[y][x].value;
+            cell.dataset.given = true;
+          }
+
+          cell.dataset.x = x;
+          cell.dataset.y = y;
+
+          //Add borders for 3x3 boxes
+          if (x % 3 === 0) {
+            cell.classList.add("border-left");
+          }
+          if (x % 3 === 2) {
+            cell.classList.add("border-right");
+          }
+          if (y % 3 === 0) {
+            cell.classList.add("border-top");
+          }
+          if (y % 3 === 2) {
+            cell.classList.add("border-bottom");
+          }
+
+          cell.addEventListener("click", function () {
+            setCellToCurrentDigit(cell);
+          });
+
+          sudokuGrid.appendChild(cell);
+        }
+      }
+    }
+
+    window.onload = generateSudokuGrid;
+  </script>
+</body>
+
+</html>
