@@ -2,22 +2,61 @@
 <html lang="en">
 
 <head>
+  <title>Sudokubo</title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sudokubo</title>
+
+  <style id="theme">
+    :root {
+      --background-image: url('images/backgrounds/bg_cave.png');
+      --image-1: url('images/enemies/spider.png');
+      --image-2: url('images/enemies/bat.png');
+      --image-3: url('images/enemies/snake.png');
+      --image-4: url('images/enemies/lizard.png');
+      --image-5: url('images/enemies/caveman.png');
+      --image-6: url('images/enemies/mole.png');
+      --image-7: url('images/enemies/cobra.png');
+      --image-8: url('images/enemies/scorpion.png');
+      --image-9: url('images/enemies/alien.png');
+    }
+  </style>
+
   <style>
+    body {
+      background-color: #333;
+    }
+
     #sudoku-container {
       display: flex;
       flex-direction: row;
       align-items: center;
       justify-content: center;
+      flex-wrap: wrap;
     }
 
     #sudoku-grid {
       display: grid;
-      grid-template-columns: repeat(9, 80px);
-      grid-template-rows: repeat(9, 80px);
+      grid-template-columns: repeat(9, 1fr);
+      grid-template-rows: repeat(9, 1fr);
+      width: 100%;
+      max-width: 720px;
+      aspect-ratio: 1 / 1;
       border: 5px solid #000;
+      background-image: var(--background-image);
+      background-size: cover;
+    }
+
+    #image-buttons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      width: 240px;
+      aspect-ratio: 1 / 1;
+      gap: 10px;
+      border: 5px solid #000;
+      border-radius: 10%;
+      padding: 20px;
+      margin: 20px;
     }
 
     .cell {
@@ -29,52 +68,52 @@
     }
 
     .cell:hover {
-      background-color: #f0f0f0;
+      background-color: #f0f0f050;
     }
 
     .cell[data-digit="1"],
     .image-button[data-digit="1"] {
-      background-image: url('images/enemies/spider.png');
+      background-image: var(--image-1);
     }
 
     .cell[data-digit="2"],
     .image-button[data-digit="2"] {
-      background-image: url('images/enemies/bat.png');
+      background-image: var(--image-2);
     }
 
     .cell[data-digit="3"],
     .image-button[data-digit="3"] {
-      background-image: url('images/enemies/snake.png');
+      background-image: var(--image-3);
     }
 
     .cell[data-digit="4"],
     .image-button[data-digit="4"] {
-      background-image: url('images/enemies/lizard.png');
+      background-image: var(--image-4);
     }
 
     .cell[data-digit="5"],
     .image-button[data-digit="5"] {
-      background-image: url('images/enemies/cobra.png');
+      background-image: var(--image-5);
     }
 
     .cell[data-digit="6"],
     .image-button[data-digit="6"] {
-      background-image: url('images/enemies/scorpion.png');
+      background-image: var(--image-6);
     }
 
     .cell[data-digit="7"],
     .image-button[data-digit="7"] {
-      background-image: url('images/enemies/caveman.png');
+      background-image: var(--image-7);
     }
 
     .cell[data-digit="8"],
     .image-button[data-digit="8"] {
-      background-image: url('images/enemies/cat.png');
+      background-image: var(--image-8);
     }
 
     .cell[data-digit="9"],
     .image-button[data-digit="9"] {
-      background-image: url('images/enemies/alien.png');
+      background-image: var(--image-9);
     }
 
     .border-top {
@@ -93,25 +132,31 @@
       border-right: 3px solid #000;
     }
 
-    #image-buttons {
-      display: grid;
-      grid-template-columns: repeat(3, 80px);
-      grid-template-rows: repeat(3, 80px);
-      gap: 10px;
-      border: 5px solid #000;
-      border-radius: 10%;
-      padding: 20px;
-      margin: 20px;
-    }
-
     .image-button {
       padding: 10px;
       background-size: cover;
+      border-radius: 20%;
     }
 
-    .selected {
-      background-color: #eee;
-      border-radius: 20%;
+    .image-button:hover {
+      background-color: #f0f0f030;
+    }
+
+    .selected,
+    .selected:hover {
+      background-color: #f0f0f050;
+    }
+
+    #menu {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 20px;
+      font-family: 'Comic Sans MS', Arial, sans-serif;
+      font-size: 20px;
+      color: #fff;
     }
   </style>
 </head>
@@ -120,22 +165,64 @@
   <div id="sudoku-container">
     <div id="sudoku-grid"></div>
 
-    <div id="image-buttons">
-      <div data-digit="1" class="image-button" onclick="selectDigit(1)"></div>
-      <div data-digit="2" class="image-button" onclick="selectDigit(2)"></div>
-      <div data-digit="3" class="image-button" onclick="selectDigit(3)"></div>
-      <div data-digit="4" class="image-button" onclick="selectDigit(4)"></div>
-      <div data-digit="5" class="image-button" onclick="selectDigit(5)"></div>
-      <div data-digit="6" class="image-button" onclick="selectDigit(6)"></div>
-      <div data-digit="7" class="image-button" onclick="selectDigit(7)"></div>
-      <div data-digit="8" class="image-button" onclick="selectDigit(8)"></div>
-      <div data-digit="9" class="image-button" onclick="selectDigit(9)"></div>
+    <div id="menu">
+      <div id="image-buttons">
+        <div data-digit="1" class="image-button" onclick="selectDigit(1)"></div>
+        <div data-digit="2" class="image-button" onclick="selectDigit(2)"></div>
+        <div data-digit="3" class="image-button" onclick="selectDigit(3)"></div>
+        <div data-digit="4" class="image-button" onclick="selectDigit(4)"></div>
+        <div data-digit="5" class="image-button" onclick="selectDigit(5)"></div>
+        <div data-digit="6" class="image-button" onclick="selectDigit(6)"></div>
+        <div data-digit="7" class="image-button" onclick="selectDigit(7)"></div>
+        <div data-digit="8" class="image-button" onclick="selectDigit(8)"></div>
+        <div data-digit="9" class="image-button" onclick="selectDigit(9)"></div>
+      </div>
+      <div>
+        <input type="checkbox" id="show-conflicts" onchange="markDuplicates()" checked />
+        <label for="show-conflicts">Show conflicts</label>
+      </div>
+      <div>
+        <input type="checkbox" id="mark-given" onchange="markDuplicates()" />
+        <label for="mark-given">Mark given cells</label>
+      </div>
     </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
   <script>
+
+    //Load sudoku data from json
+    fetch('https://spelunky.de/sudoku/dwelling.json')
+      .then(response => response.json().record)
+      .then(data => {
+        sudoku = data.grid;
+
+        css_string = `:root {`;
+        css_string += `--background-image: url('images/backgrounds/${data.background}');`;
+        for (let i = 0; i < 9; i++) {
+          css_string += `--image-${i + 1}: url('images/enemies/${data.images[i]}');`;
+        }
+        css_string += `}`;
+
+        //Repllace style theme with new css
+        theme.textContent = css_string;
+
+        generateSudokuGrid();
+      });
+
+    //image array into root css style
+    //background image
+    //sudoku grid
+
     let selectedDigit = null;
+
+    //Bind number keys to select digit
+    document.addEventListener('keydown', function (event) {
+      const numberStart = 48;
+      if (event.keyCode > numberStart && event.keyCode <= numberStart + 9) {
+        selectDigit(event.keyCode - numberStart);
+      }
+    });
 
     function selectDigit(digit) {
       //Unselect all image buttons
@@ -155,14 +242,6 @@
       const selectedButton = imageButtons[digit - 1];
       selectedButton.classList.add("selected");
     }
-
-    //Bind number keys to select digit
-    document.addEventListener('keydown', function (event) {
-      const numberStart = 48;
-      if (event.keyCode > numberStart && event.keyCode <= numberStart + 9) {
-        selectDigit(event.keyCode - numberStart);
-      }
-    });
 
     function setCellToCurrentDigit(cell) {
       if (cell.dataset.given) {
@@ -184,109 +263,10 @@
           size: party.variation.range(1, 2),
         });
       }
-    }
 
-    let sudoku = [
-      [
-        { "value": 1, "given": true, "centerPencilMarks": [1] },
-        { "value": 2, "centerPencilMarks": [2] },
-        { "value": 3, "given": true, "centerPencilMarks": [3] },
-        { "value": 4, "given": true, "centerPencilMarks": [4] },
-        { "value": 5, "centerPencilMarks": [5] },
-        { "value": 6, "given": true, "centerPencilMarks": [6] },
-        { "value": 7, "given": true, "centerPencilMarks": [7] },
-        { "value": 8, "centerPencilMarks": [8] },
-        { "value": 9, "given": true, "centerPencilMarks": [9] }
-      ],
-      [
-        { "value": 4, "given": true, "centerPencilMarks": [4] },
-        { "value": 6, "centerPencilMarks": [6] },
-        { "value": 9, "centerPencilMarks": [9] },
-        { "value": 8, "centerPencilMarks": [8] },
-        { "value": 7, "centerPencilMarks": [7] },
-        { "value": 3, "centerPencilMarks": [3] },
-        { "value": 2, "given": true, "centerPencilMarks": [2] },
-        { "value": 1, "given": true, "centerPencilMarks": [1] },
-        { "value": 5, "centerPencilMarks": [5] }
-      ],
-      [
-        { "value": 5, "centerPencilMarks": [5] },
-        { "value": 7, "centerPencilMarks": [7] },
-        { "value": 8, "centerPencilMarks": [8] },
-        { "value": 1, "centerPencilMarks": [1] },
-        { "value": 2, "centerPencilMarks": [2] },
-        { "value": 9, "centerPencilMarks": [9] },
-        { "value": 6, "centerPencilMarks": [6] },
-        { "value": 4, "given": true, "centerPencilMarks": [4] },
-        { "value": 3, "centerPencilMarks": [3] }
-      ],
-      [
-        { "value": 2, "given": true, "centerPencilMarks": [2] },
-        { "value": 9, "centerPencilMarks": [9] },
-        { "value": 4, "given": true, "centerPencilMarks": [4] },
-        { "value": 3, "centerPencilMarks": [3] },
-        { "value": 6, "given": true, "centerPencilMarks": [6] },
-        { "value": 1, "given": true, "centerPencilMarks": [1] },
-        { "value": 8, "given": true, "centerPencilMarks": [8] },
-        { "value": 5, "centerPencilMarks": [5] },
-        { "value": 7, "centerPencilMarks": [7] }
-      ],
-      [
-        { "value": 8, "centerPencilMarks": [8] },
-        { "value": 3, "given": true, "centerPencilMarks": [3] },
-        { "value": 6, "centerPencilMarks": [6] },
-        { "value": 5, "centerPencilMarks": [5] },
-        { "value": 4, "centerPencilMarks": [4] },
-        { "value": 7, "given": true, "centerPencilMarks": [7] },
-        { "value": 1, "centerPencilMarks": [1] },
-        { "value": 9, "given": true, "centerPencilMarks": [9] },
-        { "value": 2, "given": true, "centerPencilMarks": [2] }
-      ],
-      [
-        { "value": 7, "given": true, "centerPencilMarks": [7] },
-        { "value": 1, "centerPencilMarks": [1] },
-        { "value": 5, "centerPencilMarks": [5] },
-        { "value": 2, "given": true, "centerPencilMarks": [2] },
-        { "value": 9, "centerPencilMarks": [9] },
-        { "value": 8, "given": true, "centerPencilMarks": [8] },
-        { "value": 4, "centerPencilMarks": [4] },
-        { "value": 3, "given": true, "centerPencilMarks": [3] },
-        { "value": 6, "centerPencilMarks": [6] }
-      ],
-      [
-        { "value": 9, "given": true, "centerPencilMarks": [9] },
-        { "value": 5, "centerPencilMarks": [5] },
-        { "value": 2, "centerPencilMarks": [2] },
-        { "value": 6, "given": true, "centerPencilMarks": [6] },
-        { "value": 1, "given": true, "centerPencilMarks": [1] },
-        { "value": 4, "centerPencilMarks": [4] },
-        { "value": 3, "given": true, "centerPencilMarks": [3] },
-        { "value": 7, "centerPencilMarks": [7] },
-        { "value": 8, "given": true, "centerPencilMarks": [8] }
-      ],
-      [
-        { "value": 6, "centerPencilMarks": [6] },
-        { "value": 8, "given": true, "centerPencilMarks": [8] },
-        { "value": 1, "centerPencilMarks": [1] },
-        { "value": 7, "centerPencilMarks": [7] },
-        { "value": 3, "given": true, "centerPencilMarks": [3] },
-        { "value": 5, "centerPencilMarks": [5] },
-        { "value": 9, "centerPencilMarks": [9] },
-        { "value": 2, "given": true, "centerPencilMarks": [2] },
-        { "value": 4, "centerPencilMarks": [4] }
-      ],
-      [
-        { "value": 3, "centerPencilMarks": [3] },
-        { "value": 4, "centerPencilMarks": [4] },
-        { "value": 7, "given": true, "centerPencilMarks": [7] },
-        { "value": 9, "centerPencilMarks": [9] },
-        { "value": 8, "centerPencilMarks": [8] },
-        { "value": 2, "given": true, "centerPencilMarks": [2] },
-        { "value": 5, "centerPencilMarks": [5] },
-        { "value": 6, "centerPencilMarks": [6] },
-        { "value": 1, "given": true, "centerPencilMarks": [1] }
-      ]
-    ];
+      //Check for duplicates
+      markDuplicates();
+    }
 
     //Check if the current sudoku grid matches the solution
     function checkSolution() {
@@ -300,6 +280,62 @@
         }
       }
       return true;
+    }
+
+
+    //Check each row, column, and 3x3 box for duplicate values
+    function markDuplicates() {
+      //Unmark all cells
+      const cells = document.getElementsByClassName("cell");
+      for (let i = 0; i < cells.length; i++) {
+        cells[i].style.backgroundColor = "";
+      }
+
+      const markGivenCells = document.getElementById("mark-given").checked;
+      if (markGivenCells) {
+        for (let i = 0; i < cells.length; i++) {
+          if (cells[i].dataset.given) {
+            cells[i].style.backgroundColor = "#fff2";
+          }
+        }
+      }
+
+      const showConflicts = document.getElementById("show-conflicts").checked;
+      if (!showConflicts) {
+        return;
+      }
+
+      function markGroup(group) {
+        const values = Array.from(group).map(cell => parseInt(cell.dataset.digit)).filter(value => value);
+        const duplicates = values.filter((value, index) => values.indexOf(value) !== index);
+
+        //Mark all cells that are duplicates
+        group.forEach(cell => {
+          if (duplicates.includes(parseInt(cell.dataset.digit))) {
+            cell.style.backgroundColor = "#ff000050";
+          }
+        });
+      }
+
+      //For each row
+      for (let y = 0; y < 9; y++) {
+        const row = document.querySelectorAll(`[data-y="${y}"]`);
+        markGroup(row);
+      }
+
+      //For each column
+      for (let x = 0; x < 9; x++) {
+        const column = document.querySelectorAll(`[data-x="${x}"]`);
+        markGroup(column);
+      }
+
+      //For each 3x3 box
+      for (let y = 0; y < 9; y += 3) {
+        for (let x = 0; x < 9; x += 3) {
+          const box = document.querySelectorAll(`[data-y="${y}"][data-x="${x}"], [data-y="${y}"][data-x="${x + 1}"], [data-y="${y}"][data-x="${x + 2}"], [data-y="${y + 1}"][data-x="${x}"], [data-y="${y + 1}"][data-x="${x + 1}"], [data-y="${y + 1}"][data-x="${x + 2}"], [data-y="${y + 2}"][data-x="${x}"], [data-y="${y + 2}"][data-x="${x + 1}"], [data-y="${y + 2}"][data-x="${x + 2}"]`);
+          markGroup(box);
+        }
+      }
     }
 
     //Generate the sudoku grid
@@ -342,8 +378,6 @@
         }
       }
     }
-
-    window.onload = generateSudokuGrid;
   </script>
 </body>
 

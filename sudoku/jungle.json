@@ -1,0 +1,306 @@
+{
+    "background-image": "bg_jungle.png",
+    "images": [
+        "mantrap.png",
+        "bat.png",
+        "mosquito.png",
+        "tiki.png",
+        "caveman.png",
+        "witchdoctor.png",
+        "monkey.png",
+        "hangspider.png",
+        "bee.png"
+    ],
+    "grid": [
+        [
+            {
+                "value": 5
+            },
+            {
+                "value": 2
+            },
+            {
+                "value": 7
+            },
+            {
+                "value": 9
+            },
+            {
+                "value": 8,
+                "given": true
+            },
+            {
+                "value": 3
+            },
+            {
+                "value": 1,
+                "given": true
+            },
+            {
+                "value": 6,
+                "given": true
+            },
+            {
+                "value": 4
+            }
+        ],
+        [
+            {
+                "value": 6
+            },
+            {
+                "value": 3
+            },
+            {
+                "value": 8
+            },
+            {
+                "value": 2
+            },
+            {
+                "value": 1
+            },
+            {
+                "value": 4,
+                "given": true
+            },
+            {
+                "value": 5,
+                "given": true
+            },
+            {
+                "value": 9
+            },
+            {
+                "value": 7,
+                "given": true
+            }
+        ],
+        [
+            {
+                "value": 9,
+                "given": true
+            },
+            {
+                "value": 1
+            },
+            {
+                "value": 4
+            },
+            {
+                "value": 7
+            },
+            {
+                "value": 6
+            },
+            {
+                "value": 5
+            },
+            {
+                "value": 8
+            },
+            {
+                "value": 2,
+                "given": true
+            },
+            {
+                "value": 3
+            }
+        ],
+        [
+            {
+                "value": 3
+            },
+            {
+                "value": 8
+            },
+            {
+                "value": 2
+            },
+            {
+                "value": 4,
+                "given": true
+            },
+            {
+                "value": 5
+            },
+            {
+                "value": 6,
+                "given": true
+            },
+            {
+                "value": 9
+            },
+            {
+                "value": 7,
+                "given": true
+            },
+            {
+                "value": 1
+            }
+        ],
+        [
+            {
+                "value": 4
+            },
+            {
+                "value": 5
+            },
+            {
+                "value": 6,
+                "given": true
+            },
+            {
+                "value": 1
+            },
+            {
+                "value": 9
+            },
+            {
+                "value": 7,
+                "given": true
+            },
+            {
+                "value": 2
+            },
+            {
+                "value": 3,
+                "given": true
+            },
+            {
+                "value": 8
+            }
+        ],
+        [
+            {
+                "value": 7
+            },
+            {
+                "value": 9
+            },
+            {
+                "value": 1,
+                "given": true
+            },
+            {
+                "value": 3
+            },
+            {
+                "value": 2,
+                "given": true
+            },
+            {
+                "value": 8
+            },
+            {
+                "value": 4,
+                "given": true
+            },
+            {
+                "value": 5
+            },
+            {
+                "value": 6,
+                "given": true
+            }
+        ],
+        [
+            {
+                "value": 2
+            },
+            {
+                "value": 7
+            },
+            {
+                "value": 9
+            },
+            {
+                "value": 8
+            },
+            {
+                "value": 3,
+                "given": true
+            },
+            {
+                "value": 1
+            },
+            {
+                "value": 6
+            },
+            {
+                "value": 4
+            },
+            {
+                "value": 5,
+                "given": true
+            }
+        ],
+        [
+            {
+                "value": 8
+            },
+            {
+                "value": 4
+            },
+            {
+                "value": 5,
+                "given": true
+            },
+            {
+                "value": 6,
+                "given": true
+            },
+            {
+                "value": 7
+            },
+            {
+                "value": 2,
+                "given": true
+            },
+            {
+                "value": 3,
+                "given": true
+            },
+            {
+                "value": 1,
+                "given": true
+            },
+            {
+                "value": 9,
+                "given": true
+            }
+        ],
+        [
+            {
+                "value": 1
+            },
+            {
+                "value": 6,
+                "given": true
+            },
+            {
+                "value": 3
+            },
+            {
+                "value": 5
+            },
+            {
+                "value": 4
+            },
+            {
+                "value": 9,
+                "given": true
+            },
+            {
+                "value": 7,
+                "given": true
+            },
+            {
+                "value": 8
+            },
+            {
+                "value": 2
+            }
+        ]
+    ]
+}

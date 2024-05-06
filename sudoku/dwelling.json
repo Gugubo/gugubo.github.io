@@ -1,0 +1,309 @@
+{
+    "background-image": "bg_cave.png",
+    "images": [
+        "spider.png",
+        "bat.png",
+        "snake.png",
+        "lizard.png",
+        "caveman.png",
+        "mole.png",
+        "cobra.png",
+        "scorpion.png",
+        "alien.png"
+    ],
+    "grid": [
+        [
+            {
+                "value": 1,
+                "given": true
+            },
+            {
+                "value": 2
+            },
+            {
+                "value": 3,
+                "given": true
+            },
+            {
+                "value": 4,
+                "given": true
+            },
+            {
+                "value": 5
+            },
+            {
+                "value": 6,
+                "given": true
+            },
+            {
+                "value": 7,
+                "given": true
+            },
+            {
+                "value": 8
+            },
+            {
+                "value": 9,
+                "given": true
+            }
+        ],
+        [
+            {
+                "value": 4,
+                "given": true
+            },
+            {
+                "value": 6
+            },
+            {
+                "value": 9
+            },
+            {
+                "value": 8
+            },
+            {
+                "value": 7
+            },
+            {
+                "value": 3
+            },
+            {
+                "value": 2,
+                "given": true
+            },
+            {
+                "value": 1,
+                "given": true
+            },
+            {
+                "value": 5
+            }
+        ],
+        [
+            {
+                "value": 5
+            },
+            {
+                "value": 7
+            },
+            {
+                "value": 8
+            },
+            {
+                "value": 1
+            },
+            {
+                "value": 2
+            },
+            {
+                "value": 9
+            },
+            {
+                "value": 6
+            },
+            {
+                "value": 4,
+                "given": true
+            },
+            {
+                "value": 3
+            }
+        ],
+        [
+            {
+                "value": 2,
+                "given": true
+            },
+            {
+                "value": 9
+            },
+            {
+                "value": 4,
+                "given": true
+            },
+            {
+                "value": 3
+            },
+            {
+                "value": 6,
+                "given": true
+            },
+            {
+                "value": 1,
+                "given": true
+            },
+            {
+                "value": 8,
+                "given": true
+            },
+            {
+                "value": 5
+            },
+            {
+                "value": 7
+            }
+        ],
+        [
+            {
+                "value": 8
+            },
+            {
+                "value": 3,
+                "given": true
+            },
+            {
+                "value": 6
+            },
+            {
+                "value": 5
+            },
+            {
+                "value": 4
+            },
+            {
+                "value": 7,
+                "given": true
+            },
+            {
+                "value": 1
+            },
+            {
+                "value": 9,
+                "given": true
+            },
+            {
+                "value": 2,
+                "given": true
+            }
+        ],
+        [
+            {
+                "value": 7,
+                "given": true
+            },
+            {
+                "value": 1
+            },
+            {
+                "value": 5
+            },
+            {
+                "value": 2,
+                "given": true
+            },
+            {
+                "value": 9
+            },
+            {
+                "value": 8,
+                "given": true
+            },
+            {
+                "value": 4
+            },
+            {
+                "value": 3
+            },
+            {
+                "value": 6
+            }
+        ],
+        [
+            {
+                "value": 9,
+                "given": true
+            },
+            {
+                "value": 5
+            },
+            {
+                "value": 2
+            },
+            {
+                "value": 6,
+                "given": true
+            },
+            {
+                "value": 1,
+                "given": true
+            },
+            {
+                "value": 4
+            },
+            {
+                "value": 3
+            },
+            {
+                "value": 7
+            },
+            {
+                "value": 8,
+                "given": true
+            }
+        ],
+        [
+            {
+                "value": 6
+            },
+            {
+                "value": 8,
+                "given": true
+            },
+            {
+                "value": 1
+            },
+            {
+                "value": 7
+            },
+            {
+                "value": 3,
+                "given": true
+            },
+            {
+                "value": 5
+            },
+            {
+                "value": 9
+            },
+            {
+                "value": 2,
+                "given": true
+            },
+            {
+                "value": 4
+            }
+        ],
+        [
+            {
+                "value": 3
+            },
+            {
+                "value": 4
+            },
+            {
+                "value": 7,
+                "given": true
+            },
+            {
+                "value": 9
+            },
+            {
+                "value": 8
+            },
+            {
+                "value": 2,
+                "given": true
+            },
+            {
+                "value": 5
+            },
+            {
+                "value": 6
+            },
+            {
+                "value": 1,
+                "given": true
+            }
+        ]
+    ]
+}
