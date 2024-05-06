@@ -21,7 +21,7 @@
   </style>
   <style>
     body {
-      background-color: #333;
+      background-color: #222;
     }
 
     #sudoku-container {
@@ -155,6 +155,18 @@
       font-family: "Comic Sans MS", 'Segoe UI', Tahoma, sans-serif;
       font-size: 20px;
       color: #fff;
+      text-align: center;
+    }
+
+    a {
+      text-decoration: none;
+      color: #ccc;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: #fff
     }
   </style>
 </head>
@@ -182,7 +194,11 @@
         <input type="checkbox" id="mark-given" onchange="markDuplicates()" />
         <label for="mark-given">Mark given cells</label>
       </div>
+      <div id="solved" style="display: none;">
+        <h2 id="solvedMessage"></h2>
+      </div>
     </div>
+  </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
   <script>
@@ -193,7 +209,7 @@
       .then((data) => {
         sudoku = data.grid;
 
-        css_string = `:root {`;
+        var css_string = `:root {`;
         css_string += `--background-image: url('../images/backgrounds/${data.background}');`;
         for (let i = 0; i < 9; i++) {
           css_string += `--image-${i + 1}: url('../images/enemies/${data.images[i]
@@ -203,6 +219,17 @@
 
         //Replace style theme with new css
         theme.textContent = css_string;
+
+        //Add next level links
+        var next_levels = data.next;
+        console.log(next_levels);
+        for (let i = 0; i < next_levels.length; i++) {
+          const a = document.createElement("a");
+          a.href = next_levels[i].toLowerCase() + ".html";
+          a.textContent = "Go to " + next_levels[i];
+          a.style.display = "none";
+          solved.appendChild(a);
+        }
 
         generateSudokuGrid();
       });
@@ -251,10 +278,33 @@
       //Check if solution is correct
       if (checkSolution()) {
         const sudokuGrid = document.getElementById("sudoku-grid");
+        const solved = document.getElementById("solved");
         party.confetti(sudokuGrid, {
-          count: party.variation.range(100, 300),
+          count: party.variation.range(50, 300),
           size: party.variation.range(1, 2),
         });
+
+        //Show solved message and links to next levels
+        setTimeout(function () {
+          const solvedMessages = ["Congrats!", "Good job!", "Well done!", "You did it!", "You solved it!", "Great work!"];
+          solvedMessage.textContent = solvedMessages[Math.floor(Math.random() * solvedMessages.length)];
+          solved.style.display = "flex";
+
+          party.sparkles(solved, {
+            count: party.variation.range(3, 5),
+            size: party.variation.range(2, 5),
+          });
+        }, 2500);
+        const nextLevels = document.getElementsByTagName("a");
+        for (let i = 0; i < nextLevels.length; i++) {
+          setTimeout(function () {
+            nextLevels[i].style.display = "flex";
+            party.confetti(nextLevels[i], {
+              count: party.variation.range(5, 15),
+              size: party.variation.range(2, 3),
+            });
+          }, 5000 + i * 1000);
+        }
       }
 
       //Check for duplicates

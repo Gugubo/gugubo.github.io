@@ -12,6 +12,10 @@
         "scorpion.png",
         "alien.png"
     ],
+    "next": [
+        "Jungle",
+        "Volcana"
+    ],
     "grid": [
         [
             {
