@@ -310,7 +310,7 @@
 
         //Mark all cells that are duplicates
         group.forEach((cell) => {
-          if (duplicates.includes(parseInt(cell.dataset.digit))) {
+          if (duplicates.includes(parseInt(cell.dataset.digit)) && !cell.dataset.given) {
             cell.style.backgroundColor = "#ff000050";
           }
         });
