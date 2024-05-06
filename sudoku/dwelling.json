@@ -1,5 +1,6 @@
 {
-    "background-image": "bg_cave.png",
+    "theme": "Dwelling",
+    "background": "bg_cave.png",
     "images": [
         "spider.png",
         "bat.png",

@@ -1,5 +1,6 @@
 {
-    "background-image": "bg_jungle.png",
+    "theme": "Jungle",
+    "background": "bg_jungle.png",
     "images": [
         "mantrap.png",
         "bat.png",

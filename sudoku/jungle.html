@@ -5,22 +5,20 @@
     <title>Sudokubo</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <style id="theme">
         :root {
-            --background-image: url('images/backgrounds/bg_cave.png');
-            --image-1: url('images/enemies/spider.png');
-            --image-2: url('images/enemies/bat.png');
-            --image-3: url('images/enemies/snake.png');
-            --image-4: url('images/enemies/lizard.png');
-            --image-5: url('images/enemies/caveman.png');
-            --image-6: url('images/enemies/mole.png');
-            --image-7: url('images/enemies/cobra.png');
-            --image-8: url('images/enemies/scorpion.png');
-            --image-9: url('images/enemies/alien.png');
+            --background-image: url("images/backgrounds/bg_cave.png");
+            --image-1: url("images/enemies/spider.png");
+            --image-2: url("images/enemies/bat.png");
+            --image-3: url("images/enemies/snake.png");
+            --image-4: url("images/enemies/lizard.png");
+            --image-5: url("images/enemies/caveman.png");
+            --image-6: url("images/enemies/mole.png");
+            --image-7: url("images/enemies/cobra.png");
+            --image-8: url("images/enemies/scorpion.png");
+            --image-9: url("images/enemies/alien.png");
         }
     </style>
-
     <style>
         body {
             background-color: #333;
@@ -154,7 +152,7 @@
             justify-content: center;
             gap: 10px;
             padding: 20px;
-            font-family: 'Comic Sans MS', Arial, sans-serif;
+            font-family: "Comic Sans MS", Arial, sans-serif;
             font-size: 20px;
             color: #fff;
         }
@@ -164,7 +162,6 @@
 <body>
     <div id="sudoku-container">
         <div id="sudoku-grid"></div>
-
         <div id="menu">
             <div id="image-buttons">
                 <div data-digit="1" class="image-button" onclick="selectDigit(1)"></div>
@@ -187,37 +184,33 @@
             </div>
         </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
     <script>
 
         //Load sudoku data from json
-        fetch('https://spelunky.de/sudoku/jungle.json')
-            .then(response => response.json())
-            .then(data => {
+        fetch("https://spelunky.de/sudoku/jungle.json")
+            .then((response) => response.json())
+            .then((data) => {
                 sudoku = data.grid;
 
                 css_string = `:root {`;
-                css_string += `--background-image: url('images/backgrounds/${data.background}');`;
+                css_string += `--background-image: url('../images/backgrounds/${data.background}');`;
                 for (let i = 0; i < 9; i++) {
-                    css_string += `--image-${i + 1}: url('images/enemies/${data.images[i]}');`;
+                    css_string += `--image-${i + 1}: url('../images/enemies/${data.images[i]
+                        }');`;
                 }
                 css_string += `}`;
 
-                //Repllace style theme with new css
+                //Replace style theme with new css
                 theme.textContent = css_string;
 
                 generateSudokuGrid();
             });
 
-        //image array into root css style
-        //background image
-        //sudoku grid
-
         let selectedDigit = null;
 
         //Bind number keys to select digit
-        document.addEventListener('keydown', function (event) {
+        document.addEventListener("keydown", function (event) {
             const numberStart = 48;
             if (event.keyCode > numberStart && event.keyCode <= numberStart + 9) {
                 selectDigit(event.keyCode - numberStart);
@@ -273,7 +266,10 @@
             for (let y = 0; y < 9; y++) {
                 for (let x = 0; x < 9; x++) {
                     const solutionValue = sudoku[y][x].value;
-                    const cellValue = parseInt(document.querySelector(`[data-y="${y}"][data-x="${x}"]`).dataset.digit);
+                    const cellValue = parseInt(
+                        document.querySelector(`[data-y="${y}"][data-x="${x}"]`).dataset
+                            .digit
+                    );
                     if (solutionValue !== cellValue) {
                         return false;
                     }
@@ -281,7 +277,6 @@
             }
             return true;
         }
-
 
         //Check each row, column, and 3x3 box for duplicate values
         function markDuplicates() {
@@ -306,11 +301,15 @@
             }
 
             function markGroup(group) {
-                const values = Array.from(group).map(cell => parseInt(cell.dataset.digit)).filter(value => value);
-                const duplicates = values.filter((value, index) => values.indexOf(value) !== index);
+                const values = Array.from(group)
+                    .map((cell) => parseInt(cell.dataset.digit))
+                    .filter((value) => value);
+                const duplicates = values.filter(
+                    (value, index) => values.indexOf(value) !== index
+                );
 
                 //Mark all cells that are duplicates
-                group.forEach(cell => {
+                group.forEach((cell) => {
                     if (duplicates.includes(parseInt(cell.dataset.digit))) {
                         cell.style.backgroundColor = "#ff000050";
                     }
@@ -332,7 +331,14 @@
             //For each 3x3 box
             for (let y = 0; y < 9; y += 3) {
                 for (let x = 0; x < 9; x += 3) {
-                    const box = document.querySelectorAll(`[data-y="${y}"][data-x="${x}"], [data-y="${y}"][data-x="${x + 1}"], [data-y="${y}"][data-x="${x + 2}"], [data-y="${y + 1}"][data-x="${x}"], [data-y="${y + 1}"][data-x="${x + 1}"], [data-y="${y + 1}"][data-x="${x + 2}"], [data-y="${y + 2}"][data-x="${x}"], [data-y="${y + 2}"][data-x="${x + 1}"], [data-y="${y + 2}"][data-x="${x + 2}"]`);
+                    const box = document.querySelectorAll(
+                        `[data-y="${y}"][data-x="${x}"], [data-y="${y}"][data-x="${x + 1
+                        }"], [data-y="${y}"][data-x="${x + 2}"], [data-y="${y + 1
+                        }"][data-x="${x}"], [data-y="${y + 1}"][data-x="${x + 1
+                        }"], [data-y="${y + 1}"][data-x="${x + 2}"], [data-y="${y + 2
+                        }"][data-x="${x}"], [data-y="${y + 2}"][data-x="${x + 1
+                        }"], [data-y="${y + 2}"][data-x="${x + 2}"]`
+                    );
                     markGroup(box);
                 }
             }
@@ -346,7 +352,6 @@
                 for (let x = 0; x < 9; x++) {
                     const cell = document.createElement("div");
                     cell.classList.add("cell");
-
 
                     if (sudoku[y][x].given) {
                         cell.dataset.digit = sudoku[y][x].value;
@@ -378,6 +383,7 @@
                 }
             }
         }
+
     </script>
 </body>
 
