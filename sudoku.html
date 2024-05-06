@@ -193,7 +193,7 @@
 
     //Load sudoku data from json
     fetch('https://spelunky.de/sudoku/dwelling.json')
-      .then(response => response.json().record)
+      .then(response => response.json())
       .then(data => {
         sudoku = data.grid;
 
