@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sand</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #222;
+            text-align: center;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(100, 1fr);
+            grid-template-rows: repeat(100, 1fr);
+            gap: 2px;
+        }
+
+        .grid-square {
+            width: 6px;
+            height: 6px;
+        }
+
+        .grid-square:hover {
+            outline: 2px solid white;
+        }
+
+
+        .container {
+            display: grid;
+            font-family: Courier New, Courier, monospace;
+            font-weight: 700;
+            font-size: 24px;
+            letter-spacing: 0px;
+            text-align: center;
+            color: #FF5DA7;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <p id="display-number"> </p>
+        <div class="grid-container" id="gridContainer"></div>
+    </div>
+    <script>
+        const gridContainer = document.getElementById("gridContainer");
+
+        const rate = [10000, 5000, 1000, 100, 10];
+        const colors = ["#d31919", "#57a8ff", "#01e5a6", "#be63ff", "#a1a1a1"];
+
+        // Create the 100x100 grid
+        for (let row = 1; row <= 100; row++) {
+            for (let col = 1; col <= 100; col++) {
+                const gridSquare = document.createElement("div");
+                gridSquare.classList.add("grid-square");
+
+                // Calculate the number corresponding to this square
+                const squareNumber = (row - 1) * 100 + col;
+
+                // Color sand by bits
+                for (let i = 0; i < rate.length; i++) {
+                    if (Math.floor(Math.random() * rate[i]) === 0) {
+                        console.log(i);
+                        gridSquare.style.backgroundColor = colors[i];
+                        break;
+                    }
+                }
+
+                gridContainer.appendChild(gridSquare);
+            }
+        }
+    </script>
+</body>
+
+</html>
