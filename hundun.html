@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Hundun</title>
+
+    <style>
+        body {
+            background-color: #222;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            padding: 12px 24px;
+            background-color: #644b69;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            text-align: center;
+            margin: 20px;
+        }
+
+        button:hover {
+            background-color: #917794;
+        }
+
+        p,
+        button {
+            font-weight: bold;
+            font-family: Courier New, Courier, monospace;
+            font-size: 28px;
+        }
+
+        p {
+            margin-top: 150px;
+        }
+
+        .Hundun {
+            visibility: hidden;
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+</head>
+
+<div>
+    <p>Streak: 0</p>
+    <button onclick="pickHead('Chicken')" class="Hundun"><img src="images/bird.png"></button>
+    <button onclick="pickHead('Snake')" class="Hundun"><img src="images/snake.png"></button>
+    <br>
+    <button onclick="start()" id="start">Start</button>
+</div>
+
+<body>
+    <script>
+        let audio_path = 'https://spelunky.de/sounds/';
+        let audios = [
+            new Audio(audio_path + 'hundun_hurt_bird_01.wav'),
+            new Audio(audio_path + 'hundun_hurt_bird_02.wav'),
+            new Audio(audio_path + 'hundun_hurt_bird_03.wav'),
+            new Audio(audio_path + 'hundun_hurt_snake_01.wav'),
+            new Audio(audio_path + 'hundun_hurt_snake_02.wav'),
+            new Audio(audio_path + 'hundun_hurt_snake_03.wav'),
+            new Audio(audio_path + 'hundun_head_emerge.wav')
+        ];
+
+        let streak = 0;
+        let hundun = '';
+
+        function scream() {
+            hundun = Math.random() < 0.5 ? 'Chicken' : 'Snake';
+            let i = Math.floor(Math.random() * 3);
+            audios[hundun === 'Chicken' ? i : i + 3].play();
+        }
+
+        function pickHead(head) {
+            if (head === hundun) {
+                streak++;
+                timeout = Math.max(120, 2000 / Math.sqrt(streak + 1));
+                setTimeout(scream, timeout);
+            } else {
+                streak = 0;
+                document.querySelectorAll('.Hundun').forEach(hundun => hundun.style.visibility = 'hidden');
+                document.getElementById('start').style.visibility = 'visible';
+                document.getElementById('start').innerText = 'Try Again';
+            }
+            document.querySelector('p').innerText = `Streak: ${streak}`;
+        }
+
+        function start() {
+            document.querySelectorAll('.Hundun').forEach(hundun => hundun.style.visibility = 'visible');
+            document.getElementById('start').style.visibility = 'hidden';
+            audios[6].play();
+            setTimeout(scream, 1000);
+        }
+    </script>
+
+</body>
