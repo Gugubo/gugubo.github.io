@@ -39,9 +39,10 @@
             font-weight: bold;
             font-family: Courier New, Courier, monospace;
             font-size: 28px;
+            margin: 0px;
         }
 
-        p {
+        div {
             margin-top: 150px;
         }
 
@@ -49,12 +50,20 @@
             visibility: hidden;
             width: 200px;
             height: 200px;
+            margin: 25px;
+        }
+
+        #highscore {
+            font-size: 16px;
+            margin: 0px;
+            visibility: hidden;
         }
     </style>
 </head>
 
 <div>
     <p>Streak: 0</p>
+    <p id="highscore">Highscore: 0</p>
     <button onclick="pickHead('Chicken')" class="Hundun"><img src="images/bird.png"></button>
     <button onclick="pickHead('Snake')" class="Hundun"><img src="images/snake.png"></button>
     <br>
@@ -74,6 +83,7 @@
             new Audio(audio_path + 'hundun_head_emerge.wav')
         ];
 
+        let highscore = 0;
         let streak = 0;
         let hundun = '';
 
@@ -86,15 +96,22 @@
         function pickHead(head) {
             if (head === hundun) {
                 streak++;
+
                 timeout = Math.max(120, 2000 / Math.sqrt(streak + 1));
                 setTimeout(scream, timeout);
             } else {
+                highscore = Math.max(highscore, streak);
                 streak = 0;
+
                 document.querySelectorAll('.Hundun').forEach(hundun => hundun.style.visibility = 'hidden');
                 document.getElementById('start').style.visibility = 'visible';
                 document.getElementById('start').innerText = 'Try Again';
+                if (highscore > 10) {
+                    document.getElementById('highscore').style.visibility = 'visible';
+                }
             }
             document.querySelector('p').innerText = `Streak: ${streak}`;
+            document.getElementById('highscore').innerText = `Highscore: ${highscore}`;
         }
 
         function start() {
